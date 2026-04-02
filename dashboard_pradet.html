@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0f0f1a">
+<title>Projet Le Pradet — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f0f1a;--bg2:#16162a;--bg3:#1e1e35;--bg4:#252540;--accent:#6c8fff;--accent2:#a78bfa;--success:#34d399;--warning:#fbbf24;--danger:#f87171;--info:#60a5fa;--text:#e8e8f0;--text2:#9999b8;--text3:#6666a0;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);--radius:12px;--radius-sm:8px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6;min-height:100vh;padding-bottom:80px}
+.header{background:var(--bg2);border-bottom:1px solid var(--border);padding:16px 20px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between}
+.header-title{font-size:16px;font-weight:600;color:var(--text)}
+.header-sub{font-size:11px;color:var(--text2);margin-top:2px}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--warning);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.nav{display:flex;overflow-x:auto;gap:6px;padding:12px 16px;background:var(--bg2);border-bottom:1px solid var(--border);scrollbar-width:none;position:sticky;top:57px;z-index:99}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{flex-shrink:0;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;padding:7px 14px;border-radius:20px;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;transition:all .2s;white-space:nowrap}
+.nav-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.main{padding:16px}
+.pane{display:none}.pane.active{display:block}
+.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+.metric{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
+.metric-label{font-size:11px;color:var(--text2);margin-bottom:4px;font-weight:500;text-transform:uppercase;letter-spacing:.06em}
+.metric-value{font-size:22px;font-weight:600;color:var(--text);font-family:'DM Mono',monospace}
+.metric-sub{font-size:11px;color:var(--text3);margin-top:3px}
+.card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden}
+.card-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:13px;font-weight:600;color:var(--text);letter-spacing:.02em}
+.card-body{padding:4px 0}
+.row{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid var(--border)}
+.row:last-child{border-bottom:none}
+.row-left{flex:1;min-width:0;margin-right:12px}
+.row-label{font-size:13px;color:var(--text)}
+.row-sub{font-size:11px;color:var(--text2);margin-top:2px;line-height:1.4}
+.badge{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:3px 8px;border-radius:20px;white-space:nowrap;letter-spacing:.04em;flex-shrink:0}
+.b-ok{background:rgba(52,211,153,.15);color:#34d399;border:1px solid rgba(52,211,153,.3)}
+.b-warn{background:rgba(251,191,36,.12);color:#fbbf24;border:1px solid rgba(251,191,36,.25)}
+.b-danger{background:rgba(248,113,113,.12);color:#f87171;border:1px solid rgba(248,113,113,.25)}
+.b-info{background:rgba(108,143,255,.12);color:#6c8fff;border:1px solid rgba(108,143,255,.25)}
+.b-muted{background:rgba(255,255,255,.06);color:var(--text2);border:1px solid var(--border2)}
+.b-purple{background:rgba(167,139,250,.12);color:#a78bfa;border:1px solid rgba(167,139,250,.25)}
+.alert{display:flex;gap:10px;padding:12px 16px;border-left:3px solid;font-size:12px;line-height:1.5;margin:8px 12px;border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+.alert-danger{background:rgba(248,113,113,.08);border-color:#f87171;color:#fca5a5}
+.alert-warn{background:rgba(251,191,36,.08);border-color:#fbbf24;color:#fde68a}
+.alert-ok{background:rgba(52,211,153,.08);border-color:#34d399;color:#6ee7b7}
+.alert-info{background:rgba(108,143,255,.08);border-color:#6c8fff;color:#a5b4fc}
+.phase{padding:14px 16px;border-bottom:1px solid var(--border)}
+.phase:last-child{border-bottom:none}
+.phase-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.phase-title{font-size:13px;font-weight:500;color:var(--text)}
+.phase-desc{font-size:11px;color:var(--text2);margin-bottom:8px;line-height:1.4}
+.prog-bar{height:5px;background:var(--bg4);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;border-radius:3px}
+.intervenant{display:flex;align-items:flex-start;gap:12px;padding:13px 16px;border-bottom:1px solid var(--border)}
+.intervenant:last-child{border-bottom:none}
+.avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
+.av-blue{background:rgba(108,143,255,.2);color:#6c8fff}
+.av-green{background:rgba(52,211,153,.15);color:#34d399}
+.av-purple{background:rgba(167,139,250,.15);color:#a78bfa}
+.av-gray{background:rgba(255,255,255,.07);color:var(--text2)}
+.intervenant-name{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px}
+.intervenant-sub{font-size:11px;color:var(--text2);line-height:1.4}
+.pmr-spec{display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border);font-size:13px}
+.pmr-spec:last-child{border-bottom:none}
+.pmr-val{font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);font-weight:500;margin-left:auto;flex-shrink:0}
+.risque{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--border);font-size:13px}
+.risque:last-child{border-bottom:none}
+.rdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.tl-item{display:flex;gap:14px;padding:10px 16px}
+.tl-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.tl-line-wrap{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:20px}
+.tl-line{width:1px;background:var(--border2);flex:1;margin-top:4px}
+.tl-content{flex:1;padding-bottom:8px}
+.tl-date{font-size:10px;font-weight:600;color:var(--text2);letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+.tl-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px}
+.tl-desc{font-size:11px;color:var(--text2);line-height:1.4}
+.section-label{font-size:10px;font-weight:600;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;padding:14px 16px 6px}
+.footer-nav{position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0 12px;z-index:200}
+.fn-btn{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;color:var(--text2);cursor:pointer;padding:4px 8px;border-radius:8px;border:none;background:none;font-family:'DM Sans',sans-serif;transition:color .2s}
+.fn-btn.active{color:var(--accent)}
+.fn-icon{font-size:18px;line-height:1}
+.mono{font-family:'DM Mono',monospace}
+@media(min-width:600px){.main{padding:20px;max-width:720px;margin:0 auto}.metrics{grid-template-columns:repeat(4,1fr)}.footer-nav{display:none}body{padding-bottom:0}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="header-title">Projet Le Pradet</div>
+    <div class="header-sub">60 rue Jules Verne · Zone UDd · PMR T5</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <div class="status-dot"></div>
+    <span style="font-size:11px;color:var(--text2)">En cours</span>
+  </div>
+</div>
+
+<div class="nav">
+  <button class="nav-btn active" onclick="showPane('agenda',this)">Agenda</button>
+  <button class="nav-btn" onclick="showPane('financier',this)">Financier</button>
+  <button class="nav-btn" onclick="showPane('projet',this)">Projet</button>
+  <button class="nav-btn" onclick="showPane('travaux',this)">Travaux</button>
+  <button class="nav-btn" onclick="showPane('intervenants',this)">Intervenants</button>
+  <button class="nav-btn" onclick="showPane('risques',this)">Risques</button>
+  <button class="nav-btn" onclick="showPane('pmr',this)">PMR</button>
+</div>
+
+<div class="main">
+
+<div class="metrics">
+  <div class="metric"><div class="metric-label">Opération</div><div class="metric-value mono">648k €</div><div class="metric-sub">achat + travaux</div></div>
+  <div class="metric"><div class="metric-label">Travaux</div><div class="metric-value mono">335k €</div><div class="metric-sub">TTC estimé Badin</div></div>
+  <div class="metric"><div class="metric-label">Mensualité</div><div class="metric-value mono">1 576</div><div class="metric-sub">€/mois hors assurance</div></div>
+  <div class="metric"><div class="metric-label">Acte notaire</div><div class="metric-value mono" id="countdown">--j</div><div class="metric-sub">limite 8 juillet 2026</div></div>
+</div>
+
+<!-- AGENDA -->
+<div id="pane-agenda" class="pane active">
+  <div class="card">
+    <div class="card-header"><div class="card-title">Dates critiques</div><span class="badge b-danger">3 urgences</span></div>
+    <div class="card-body">
+      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#fbbf24"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date">8 avril 2026 — J-6</div><div class="tl-title">Signature compromis</div><div class="tl-desc">Maître AGI · SELAS AGI et Associés · Villeurbanne · Version modifiée en attente</div></div></div>
+      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#fbbf24"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date">11 avril 2026 — J-9</div><div class="tl-title">RDV LCL — validation plan financier</div><div class="tl-desc">Cumer Alexandrine · Agence St-Didier-au-Mont-d'Or</div></div></div>
+      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#f87171"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date">8 juin 2026</div><div class="tl-title">Offre de prêt à obtenir</div><div class="tl-desc">Condition suspensive compromis · Date limite absolue LCL</div></div></div>
+      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#f87171"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date">8 juillet 2026</div><div class="tl-title">Acte authentique — date limite</div><div class="tl-desc">Séquestre 26 500 € à verser dans les 10j du compromis</div></div></div>
+      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#6c8fff"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date">À planifier — urgent</div><div class="tl-title">RDV conseil urbanisme Le Pradet</div><div class="tl-desc">Avec Badin · Carport PMR · Dérogation L.152-6 CU</div></div></div>
+      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#6c8fff"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date">À planifier</div><div class="tl-title">Géomètre + calcul SHON</div><div class="tl-desc">Relevé parcelle · SHON existant · Marge COS résiduelle</div></div></div>
+      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#9999b8"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date">Après acte — T4 2026</div><div class="tl-title">Dépôt permis de construire</div><div class="tl-desc">PC extension > 40 m² · Délai instruction 2-3 mois</div></div></div>
+      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#34d399"></div></div><div class="tl-content"><div class="tl-date">Après obtention PC</div><div class="tl-title">Démarrage travaux phase 1</div><div class="tl-desc">Gros œuvre · Transformation garage · Vide sanitaire</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- FINANCIER -->
+<div id="pane-financier" class="pane">
+  <div class="card">
+    <div class="card-header"><div class="card-title">Plan de financement</div></div>
+    <div class="card-body">
+      <div class="row"><div class="row-left"><div class="row-label">Prix acquisition</div></div><span class="mono" style="font-size:13px">526 000 €</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Mobilier inclus</div></div><span class="mono" style="font-size:13px;color:var(--text2)">4 000 €</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Frais de notaire</div><div class="row-sub">Taux majoré Var 2025-2028</div></div><span class="mono" style="font-size:13px">41 300 €</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Budget travaux TTC</div><div class="row-sub">Estimation Badin — à affiner</div></div><span class="mono" style="font-size:13px">335 000 €</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Apport personnel</div></div><span class="mono" style="font-size:13px;color:var(--success)">37 567 €</span></div>
+      <div class="row" style="background:var(--bg4)"><div class="row-left"><div class="row-label" style="font-weight:600">Total opération</div></div><span class="mono" style="font-size:15px;font-weight:600;color:var(--accent)">648 567 €</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title">Prêts LCL</div></div>
+    <div class="card-body">
+      <div class="row"><div class="row-left"><div class="row-label">Prêt relais</div><div class="row-sub">36 mois · 3,55% max · TAEG 5,73% · coût 16 398 €</div></div><span class="mono" style="font-size:13px;color:var(--warning)">345 000 €</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Prêt immobilier fixe</div><div class="row-sub">240 mois · 3,74% max · TAEG 4,19% · coût 116 430 €</div></div><span class="mono" style="font-size:13px">266 000 €</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Mensualité courante</div><div class="row-sub">hors assurance</div></div><span class="mono" style="font-size:15px;font-weight:600">1 576 €</span></div>
+      <div class="row" style="background:rgba(248,113,113,.05)"><div class="row-left"><div class="row-label">Remboursement relais (mois 12)</div><div class="row-sub">Lié à vente bien actuel — risque si délai</div></div><span class="mono" style="font-size:13px;color:var(--danger)">358 823 €</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title">Budget Badin</div><span class="badge b-warn">Piscine sous-estimée</span></div>
+    <div class="card-body">
+      <div class="row"><div class="row-left"><div class="row-label">Rénovation maison</div><div class="row-sub">TVA 10% · 1 900 €/m² HT</div></div><span class="mono" style="font-size:12px;color:var(--text2)">209 000 €</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Ascenseur privatif</div><div class="row-sub">TVA 20%</div></div><span class="mono" style="font-size:12px;color:var(--text2)">36 000 €</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Piscine + terrasse</div><div class="row-sub">TVA 20% · réel probable 55-70 k€ HT</div></div><span class="mono" style="font-size:12px;color:var(--warning)">54 000 €</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Carport PMR</div><div class="row-sub">TVA 20%</div></div><span class="mono" style="font-size:12px;color:var(--text2)">36 000 €</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Honoraires Badin (12%)</div></div><span class="mono" style="font-size:12px;color:var(--text2)">42 480 €</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">BET + géomètre + SPS + DO</div></div><span class="mono" style="font-size:12px;color:var(--warning)">~20 000 €</span></div>
+      <div class="row" style="background:var(--bg4)"><div class="row-left"><div class="row-label" style="font-weight:600">Total estimé</div><div class="row-sub">Jusqu'à 365 k€ (clause art.8.1)</div></div><span class="mono" style="font-size:15px;font-weight:600;color:var(--accent)">335 k€</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJET -->
+<div id="pane-projet" class="pane">
+  <div class="card">
+    <div class="card-header"><div class="card-title">Zonage PLU — Zone UDd</div><span class="badge b-info">Gravettes</span></div>
+    <div class="card-body">
+      <div class="row"><div class="row-left"><div class="row-label">COS standard</div></div><span class="mono" style="font-size:12px">0,30 → 180 m²</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">COS avec ENR</div><div class="row-sub">Panneaux PV ou PAC</div></div><span class="mono" style="font-size:12px;color:var(--success)">0,36 → 216 m²</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Emprise max</div><div class="row-sub">Existant ~155 m² → marge ~25 m²</div></div><span class="mono" style="font-size:12px">30% = 180 m²</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Espaces libres min</div></div><span class="mono" style="font-size:12px;color:var(--warning)">40% = 240 m²</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Hauteur max</div></div><span class="mono" style="font-size:12px">7 m à l'égout</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Recul voies</div><div class="row-sub">Jules Verne (N) + Mayol (O) — angle</div></div><span class="mono" style="font-size:12px;color:var(--warning)">4 m obligatoires</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Recul limites sépar.</div></div><span class="mono" style="font-size:12px;color:var(--warning)">4 m (UDd strict)</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Piscine recul</div><div class="row-sub">Dérogation UD7.2 — conforme</div></div><span class="mono" style="font-size:12px;color:var(--success)">2 m seulement</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title">Programme</div></div>
+    <div class="card-body">
+      <div class="row"><div class="row-left"><div class="row-label">RDC ex-garage (~79 m²)</div><div class="row-sub">Séjour/cuisine S · Suite parentale PMR · Hall</div></div><span class="badge b-info">À créer</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">R+1 (90 m²)</div><div class="row-sub">3 chambres · redistribution possible</div></div><span class="badge b-warn">À redistribuer</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Ascenseur privatif</div><div class="row-sub">100×140 cm · porte 90 cm · étude structure</div></div><span class="badge b-danger">Critique PMR</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Carport PMR</div><div class="row-sub">3,30 m · double recul · dérogation L.152-6</div></div><span class="badge b-warn">Dérogation</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Couloir de nage plein sud</div><div class="row-sub">Delfino · recul 2 m · conforme PLU</div></div><span class="badge b-ok">Conforme</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Terrasse plain-pied</div><div class="row-sub">0 seuil · continuité intérieur/extérieur</div></div><span class="badge b-ok">Conforme</span></div>
+    </div>
+  </div>
+  <div class="section-label">Anomalies contrat Badin</div>
+  <div class="alert alert-danger">Référence devis erronée : 26_009 vs 26_004v2 — corriger par avenant</div>
+  <div class="alert alert-danger">Contrat non signé par Emmanuel Lemoine — signature urgente</div>
+  <div class="alert alert-warn">Mention manuscrite art. L.313-42 non remplie</div>
+  <div class="alert alert-warn">Clause 70 k€ supplémentaires floue — seuil à préciser</div>
+</div>
+
+<!-- TRAVAUX -->
+<div id="pane-travaux" class="pane">
+  <div class="card">
+    <div class="card-header"><div class="card-title">Phasage des travaux</div></div>
+    <div class="card-body">
+      <div class="phase"><div class="phase-header"><div class="phase-title">Phase 0 — Avant acte</div><span class="badge b-danger">En cours</span></div><div class="phase-desc">PLU · règlement lotissement · vide sanitaire · réseaux · géomètre · SHON</div><div class="prog-bar"><div class="prog-fill" style="width:40%;background:linear-gradient(90deg,#f87171,#fbbf24)"></div></div></div>
+      <div class="phase"><div class="phase-header"><div class="phase-title">Phase 1 — Gros œuvre (mois 1-2)</div><span class="badge b-muted">À venir</span></div><div class="phase-desc">Transformation garage · vide sanitaire · plancher hourdis · dépôt PC · 8-15 k€</div><div class="prog-bar"><div class="prog-fill" style="width:0%"></div></div></div>
+      <div class="phase"><div class="phase-header"><div class="phase-title">Phase 2 — Isolation (mois 2-3)</div><span class="badge b-muted">À venir</span></div><div class="phase-desc">Doublage PU 100mm · sarking toiture · plancher PSE · menuiseries g≤0,35 · 25-45 k€</div><div class="prog-bar"><div class="prog-fill" style="width:0%"></div></div></div>
+      <div class="phase"><div class="phase-header"><div class="phase-title">Phase 3 — Équipements (mois 3-4)</div><span class="badge b-muted">À venir</span></div><div class="phase-desc">PAC multi-split · VMC hygro-B · PAC ECS thermodynamique · tableau 3×400V · 12-20 k€</div><div class="prog-bar"><div class="prog-fill" style="width:0%"></div></div></div>
+      <div class="phase"><div class="phase-header"><div class="phase-title">Phase 4 — Distribution PMR (mois 4-5)</div><span class="badge b-muted">À venir</span></div><div class="phase-desc">Cloisonnement · douche italienne · cuisine 80 cm · ascenseur · finitions · 35-65 k€</div><div class="prog-bar"><div class="prog-fill" style="width:0%"></div></div></div>
+      <div class="phase"><div class="phase-header"><div class="phase-title">Phase 5 — Extension + piscine (mois 5+)</div><span class="badge b-purple">À différer</span></div><div class="phase-desc">Carport PMR · couloir Delfino · terrasse · local vélo · ~80-105 k€</div><div class="prog-bar"><div class="prog-fill" style="width:0%;background:#a78bfa"></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- INTERVENANTS -->
+<div id="pane-intervenants" class="pane">
+  <div class="card">
+    <div class="card-header"><div class="card-title">Équipe projet</div></div>
+    <div class="card-body">
+      <div class="intervenant"><div class="avatar av-blue">BA</div><div style="flex:1"><div class="intervenant-name">Architecte Badin</div><div class="intervenant-sub">Convention 26_004v2 · Ordre PACA S26268 · MAF 270357 · Mission complète</div></div><span class="badge b-warn">À signer</span></div>
+      <div class="intervenant"><div class="avatar av-green">LC</div><div style="flex:1"><div class="intervenant-name">LCL — Cumer Alexandrine</div><div class="intervenant-sub">Agence St-Didier-au-Mont-d'Or · Dossier 005878759 · RDV 11 avril</div></div><span class="badge b-warn">J-9</span></div>
+      <div class="intervenant"><div class="avatar av-purple">AG</div><div style="flex:1"><div class="intervenant-name">Maître AGI — SELAS AGI et Associés</div><div class="intervenant-sub">Notaire · Villeurbanne · Compromis modifié en attente</div></div><span class="badge b-warn">En attente</span></div>
+      <div class="intervenant"><div class="avatar av-gray">GE</div><div style="flex:1"><div class="intervenant-name">Géomètre-expert</div><div class="intervenant-sub">Relevé · calcul SHON · implantation PC — à mandater</div></div><span class="badge b-danger">À recruter</span></div>
+      <div class="intervenant"><div class="avatar av-gray">DO</div><div style="flex:1"><div class="intervenant-name">Assurance dommages-ouvrage</div><div class="intervenant-sub">Obligatoire avant chantier · estimation 3-6 k€</div></div><span class="badge b-danger">À souscrire</span></div>
+      <div class="intervenant"><div class="avatar av-gray">ER</div><div style="flex:1"><div class="intervenant-name">Ergothérapeute — PACT-HD Var</div><div class="intervenant-sub">Audit PMR · dossiers ANAH/MDPH/CAF avec Badin</div></div><span class="badge b-info">Recommandé</span></div>
+      <div class="intervenant"><div class="avatar av-gray">PS</div><div style="flex:1"><div class="intervenant-name">Pisciniste — devis couloir de nage</div><div class="intervenant-sub">Valider enveloppe Badin 45 k€ HT · réel probable 55-70 k€</div></div><span class="badge b-danger">À consulter</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- RISQUES -->
+<div id="pane-risques" class="pane">
+  <div class="section-label">Alertes contractuelles</div>
+  <div class="alert alert-danger">Clause PC/DP compromis : déclarer intention piscine + extension — à modifier avant acte</div>
+  <div class="alert alert-danger">Cahier des charges lotissement "L'Avenir" non remis — ne pas signer sans l'avoir lu</div>
+  <div class="alert alert-warn">Servitude passage 6 m côté est — statut voie privée/communale à clarifier</div>
+  <div class="alert alert-warn">DPE E — interdiction location 2034 · travaux à documenter</div>
+  <div class="alert alert-warn">Prêt relais 345 k€ / 36 mois — vente bien actuel à sécuriser</div>
+  <div class="alert alert-info">Puits domestique — usage remplissage piscine à vérifier (règlement sanitaire Var)</div>
+  <div class="alert alert-info">Demander liste travaux personnels du vendeur (vices cachés)</div>
+  <div class="section-label">Risques naturels — Géorisques</div>
+  <div class="card">
+    <div class="card-body">
+      <div class="risque"><div class="rdot" style="background:#f87171"></div><span style="flex:1">Radon — potentiel 3/3</span><span class="badge b-danger">Mesure obligatoire</span></div>
+      <div class="risque"><div class="rdot" style="background:#f87171"></div><span style="flex:1">Inondation — aléa faible</span><span class="badge b-warn">Existant</span></div>
+      <div class="risque"><div class="rdot" style="background:#fbbf24"></div><span style="flex:1">Remontée de nappe</span><span class="badge b-warn">Fiabilité moyenne</span></div>
+      <div class="risque"><div class="rdot" style="background:#fbbf24"></div><span style="flex:1">Retrait-gonflement argiles</span><span class="badge b-warn">Modéré</span></div>
+      <div class="risque"><div class="rdot" style="background:#34d399"></div><span style="flex:1">Séisme niveau 2/5</span><span class="badge b-ok">Faible</span></div>
+      <div class="risque"><div class="rdot" style="background:#34d399"></div><span style="flex:1">Feu de forêt</span><span class="badge b-ok">Inconnu adresse</span></div>
+      <div class="risque"><div class="rdot" style="background:#fbbf24"></div><span style="flex:1">Pollution sols — ex-BP à 500 m</span><span class="badge b-warn">Concerné</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PMR -->
+<div id="pane-pmr" class="pane">
+  <div class="card">
+    <div class="card-header"><div class="card-title">Profil</div></div>
+    <div class="card-body">
+      <div class="row"><div class="row-label">Niveau lésionnel</div><span style="font-size:13px;font-weight:600;color:var(--accent)">Paraplégique complet T5</span></div>
+      <div class="row"><div class="row-label">Fauteuil</div><span class="mono" style="font-size:12px;color:var(--text2)">RGK Tiga Sub4</span></div>
+      <div class="row"><div class="row-label">Type</div><span style="font-size:12px;color:var(--text2)">Ultra-léger manuel actif</span></div>
+      <div class="row"><div class="row-label">Largeur</div><span class="mono" style="font-size:12px">~63-65 cm</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-title">Dimensions critiques</div></div>
+    <div class="card-body">
+      <div class="pmr-spec"><span style="width:22px;text-align:center">🚪</span><span>Portes principales</span><span class="pmr-val">100 cm</span></div>
+      <div class="pmr-spec"><span style="width:22px;text-align:center">🚪</span><span>Portes secondaires min</span><span class="pmr-val">90 cm</span></div>
+      <div class="pmr-spec"><span style="width:22px;text-align:center">↺</span><span>Rotation recommandée</span><span class="pmr-val">160-170 cm</span></div>
+      <div class="pmr-spec"><span style="width:22px;text-align:center">↗</span><span>Pente rampe max quotidien</span><span class="pmr-val">4%</span></div>
+      <div class="pmr-spec"><span style="width:22px;text-align:center">—</span><span>Seuils maximum</span><span class="pmr-val">0 cm idéal</span></div>
+      <div class="pmr-spec"><span style="width:22px;text-align:center">🍳</span><span>Plan de travail cuisine</span><span class="pmr-val">80-85 cm</span></div>
+      <div class="pmr-spec"><span style="width:22px;text-align:center">🚿</span><span>Transfert latéral douche</span><span class="pmr-val">80 cm libre</span></div>
+      <div class="pmr-spec"><span style="width:22px;text-align:center">🚽</span><span>Hauteur siège WC</span><span class="pmr-val">48-50 cm</span></div>
+      <div class="pmr-spec"><span style="width:22px;text-align:center">🛗</span><span>Cabine ascenseur minimum</span><span class="pmr-val">100×140 cm</span></div>
+      <div class="pmr-spec"><span style="width:22px;text-align:center">🚗</span><span>Largeur carport PMR</span><span class="pmr-val">3,30 m</span></div>
+    </div>
+  </div>
+  <div class="section-label">Financements PMR</div>
+  <div class="alert alert-info">ANAH — jusqu'à 50% des travaux d'adaptation selon revenus</div>
+  <div class="alert alert-info">MDPH — Prestation de compensation du handicap (PCH)</div>
+  <div class="alert alert-info">CAF — aide au logement adapté selon situation</div>
+  <div class="alert alert-warn">Dérogation L.152-6 CU pour carport — dossier à préparer avec Badin avant PC</div>
+  <div class="alert alert-info">PACT-HD du Var — audit accessibilité + montage dossiers financement</div>
+</div>
+
+</div>
+
+<nav class="footer-nav">
+  <button class="fn-btn active" id="fn-agenda" onclick="showPane('agenda',null,'fn-agenda')"><span class="fn-icon">📅</span>Agenda</button>
+  <button class="fn-btn" id="fn-financier" onclick="showPane('financier',null,'fn-financier')"><span class="fn-icon">💶</span>Finance</button>
+  <button class="fn-btn" id="fn-travaux" onclick="showPane('travaux',null,'fn-travaux')"><span class="fn-icon">🔨</span>Travaux</button>
+  <button class="fn-btn" id="fn-risques" onclick="showPane('risques',null,'fn-risques')"><span class="fn-icon">⚠️</span>Risques</button>
+  <button class="fn-btn" id="fn-pmr" onclick="showPane('pmr',null,'fn-pmr')"><span class="fn-icon">♿</span>PMR</button>
+</nav>
+
+<script>
+function showPane(id,navBtn,fnId){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('active'));
+  document.getElementById('pane-'+id).classList.add('active');
+  if(navBtn){document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));navBtn.classList.add('active');}
+  document.querySelectorAll('.fn-btn').forEach(b=>b.classList.remove('active'));
+  if(fnId)document.getElementById(fnId).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function updateCountdown(){
+  var target=new Date('2026-07-08');
+  var now=new Date();
+  var diff=Math.ceil((target-now)/(1000*60*60*24));
+  var el=document.getElementById('countdown');
+  if(el){el.textContent=diff>0?diff+'j':'Échu';el.style.color=diff<=30?'#f87171':diff<=60?'#fbbf24':'#e8e8f0';}
+}
+updateCountdown();
+</script>
+</body>
+</html>
