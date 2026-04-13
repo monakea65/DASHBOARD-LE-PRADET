@@ -113,6 +113,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   <button class="nav-btn" data-pane="intervenants" onclick="showPane('intervenants')">Intervenants</button>
   <button class="nav-btn" data-pane="risques" onclick="showPane('risques')">Risques</button>
   <button class="nav-btn" data-pane="pmr" onclick="showPane('pmr')">PMR</button>
+  <button class="nav-btn" data-pane="planning" onclick="showPane('planning')">Planning</button>
 </div>
 
 <div class="main">
@@ -126,18 +127,24 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 
 <!-- AGENDA -->
 <div id="pane-agenda" class="pane active">
-  <div class="card">
-    <div class="card-header"><div class="card-title">Dates critiques</div><span class="badge b-danger">5 urgences</span></div>
+
+  <div class="alert alert-danger" style="margin:12px 12px 0">⚠️ <strong>Point de vigilance PC / Acte :</strong> Badin prévoit le dépôt PC le 26/06 — l'instruction dure 2 mois minimum. Le PC ne sera pas accordé avant la signature de l'acte (08/07). Vérifier avec le notaire si le compromis contient une clause suspensive liée au PC.</div>
+
+  <div class="card" style="margin-top:12px">
+    <div class="card-header"><div class="card-title">Planning Badin — phases MOE</div><span class="badge b-info">Email 13/04/2026 · indicatif</span></div>
     <div class="card-body">
-      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#34d399"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date" data-date="2026-04-08">8 avril 2026 — <span class="jday"></span></div><div class="tl-title">✓ Compromis signé</div><div class="tl-desc">Maître AGI · SELAS AGI et Associés · Villeurbanne</div></div></div>
+      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#34d399"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date" data-date="2026-04-08">8 avril 2026</div><div class="tl-title">✓ Compromis signé — Contrat MOE signé</div><div class="tl-desc">Maître AGI · Contrat MOE-26-004v2 · Art 9.2 et 4.3 mis à jour</div></div></div>
       <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#f87171"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date" data-date="2026-04-18">18 avril 2026 — <span class="jday"></span></div><div class="tl-title">⚠️ Séquestre à verser — 26 500 €</div><div class="tl-desc">Délai 10 jours après compromis · Virement à Maître AGI · URGENT</div></div></div>
-      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#fbbf24"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date" data-date="2026-04-11">11 avril 2026 — <span class="jday"></span></div><div class="tl-title">RDV LCL — validation plan financier</div><div class="tl-desc">Cumer Alexandrine · Agence St-Didier-au-Mont-d'Or</div></div></div>
-      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#f87171"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date">8 juin 2026</div><div class="tl-title">Offre de prêt à obtenir</div><div class="tl-desc">Condition suspensive compromis · Date limite absolue LCL</div></div></div>
-      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#f87171"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date">8 juillet 2026</div><div class="tl-title">Acte authentique — date limite</div><div class="tl-desc">Séquestre 26 500 € à verser dans les 10j du compromis</div></div></div>
-      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#6c8fff"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date">À planifier — urgent</div><div class="tl-title">RDV conseil urbanisme Le Pradet</div><div class="tl-desc">Avec Badin · Carport PMR · Dérogation L.152-6 CU</div></div></div>
-      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#6c8fff"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date">À planifier</div><div class="tl-title">Géomètre + calcul SHON</div><div class="tl-desc">Relevé parcelle · SHON existant · Marge COS résiduelle</div></div></div>
-      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#f87171"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date" data-date="2026-05-08">8 mai 2026 — <span class="jday"></span></div><div class="tl-title">⚠️ Dépôt permis de construire — LIMITE</div><div class="tl-desc">30 jours après compromis (8 avril) · Architecte Yannick Badin · PC extension > 40 m² · À déclencher immédiatement</div></div></div>
-      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#34d399"></div></div><div class="tl-content"><div class="tl-date">Après obtention PC</div><div class="tl-title">Démarrage travaux phase 1</div><div class="tl-desc">Gros œuvre · Transformation garage · Vide sanitaire</div></div></div>
+      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#a78bfa"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date" data-date="2026-04-29">15 avr → 06 mai 2026</div><div class="tl-title">📐 ESQ — Esquisses (Badin)</div><div class="tl-desc">Livraison le 29/04 · Validation Emmanuel avant le 06/05</div></div></div>
+      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#fbbf24"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date" data-date="2026-06-08">8 juin 2026 — <span class="jday"></span></div><div class="tl-title">💶 Offre de prêt LCL — date limite</div><div class="tl-desc">Condition suspensive compromis · Alexandrine Cumer</div></div></div>
+      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#a78bfa"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date" data-date="2026-06-10">07 mai → 10 juin 2026</div><div class="tl-title">📐 Conception générale APS/APD (Badin)</div><div class="tl-desc">5 semaines · Validation client avant le 10/06</div></div></div>
+      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#f87171"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date" data-date="2026-06-26">26 juin 2026 — <span class="jday"></span></div><div class="tl-title">⚠️ Dépôt permis de construire</div><div class="tl-desc">Préparation dossier 11/06→24/06 · Dépôt mairie 26/06 · Instruction 2 mois</div></div></div>
+      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#f87171"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date" data-date="2026-07-08">8 juillet 2026 — <span class="jday"></span></div><div class="tl-title">⚖️ Acte authentique — date limite</div><div class="tl-desc">Notaire Rockaya Fofana · ⚠️ PC non accordé à cette date (instruction en cours)</div></div></div>
+      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#a78bfa"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date">29 juin → 21 août 2026</div><div class="tl-title">📐 PRO — Projet définitif (Badin)</div><div class="tl-desc">8 semaines en parallèle instruction PC · Validation client 03/08→21/08</div></div></div>
+      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#60a5fa"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date">24 août → 16 oct 2026</div><div class="tl-title">📐 ACT/DCE — Consultation entreprises</div><div class="tl-desc">DCE 24/08→04/09 · Consultations 07/09→02/10 · Analyse offres 05/10→16/10</div></div></div>
+      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#60a5fa"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date">19 → 30 octobre 2026</div><div class="tl-title">Préparation chantier — Ordre de Service</div><div class="tl-desc">Signature OS fin octobre · Démarrage travaux le 02/11</div></div></div>
+      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#34d399"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-date">2 nov 2026 → 2 juil 2027</div><div class="tl-title">🔨 Travaux — DET (8 mois)</div><div class="tl-desc">Mensualités Badin 1 858,50 € TTC/mois · Suivi chantier</div></div></div>
+      <div class="tl-item"><div class="tl-line-wrap"><div class="tl-dot" style="background:#34d399"></div></div><div class="tl-content"><div class="tl-date">5 → 16 juillet 2027</div><div class="tl-title">✓ Réception et livraison</div><div class="tl-desc">AOR · Procès-verbal de réception · Levée des réserves</div></div></div>
     </div>
   </div>
 </div>
@@ -327,6 +334,17 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   <div class="alert alert-info">PACT-HD du Var — audit accessibilité + montage dossiers financement</div>
 </div>
 
+<!-- PLANNING GANTT -->
+<div id="pane-planning" class="pane">
+  <div class="alert alert-danger" style="margin-bottom:12px">⚠️ <strong>PC / Acte :</strong> Dépôt PC prévu 26/06 — instruction 2 mois. PC non accordé avant acte (08/07). Vérifier clause suspensive avec notaire.</div>
+  <div class="card">
+    <div class="card-header"><div class="card-title">📐 Phases MOE — Badin</div><span class="badge b-info">Indicatif · 13/04/2026</span></div>
+    <div class="card-body" id="gantt-mobile"></div>
+  </div>
+  <div class="alert alert-info" style="margin-top:8px">💡 PRO calé en parallèle de l'instruction PC — temps masqué optimisé par Badin.</div>
+  <div class="alert alert-warn" style="margin-top:4px">📋 Planning susceptible d'évoluer selon avancement des phases.</div>
+</div>
+
 </div>
 
 <nav class="footer-nav">
@@ -337,6 +355,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   <button class="fn-btn" data-pane="intervenants" onclick="showPane('intervenants')"><span class="fn-icon">👥</span>Équipe</button>
   <button class="fn-btn" data-pane="risques" onclick="showPane('risques')"><span class="fn-icon">⚠️</span>Risques</button>
   <button class="fn-btn" data-pane="pmr" onclick="showPane('pmr')"><span class="fn-icon">♿</span>PMR</button>
+  <button class="fn-btn" data-pane="planning" onclick="showPane('planning')"><span class="fn-icon">📐</span>Planning</button>
 </nav>
 
 <script>
@@ -348,6 +367,72 @@ function showPane(id){
   document.querySelectorAll('.fn-btn').forEach(b=>b.classList.toggle('active',b.dataset.pane===id));
   window.scrollTo({top:0,behavior:'smooth'});
 }
+
+// ---- GANTT MOBILE ----
+(function(){
+  const phases = [
+    { name:'ESQ',            sub:'15/04 → 06/05',         start:'2026-04-15', end:'2026-05-06',  color:'#a78bfa', jalon:'Valid. ESQ 06/05' },
+    { name:'APS / APD',      sub:'07/05 → 10/06',         start:'2026-05-07', end:'2026-06-10',  color:'#818cf8', jalon:'Valid. Concept. 10/06' },
+    { name:'PC — Dossier',   sub:'11/06 → dépôt 26/06',   start:'2026-06-11', end:'2026-06-26',  color:'#fbbf24', jalon:'⚠️ Dépôt 26/06' },
+    { name:'Instruction PC', sub:'25/06 → 25/08 (mairie)', start:'2026-06-25', end:'2026-08-25',  color:'#374151', jalon:'' },
+    { name:'PRO',            sub:'29/06 → 21/08',         start:'2026-06-29', end:'2026-08-21',  color:'#34d399', jalon:'Valid. PRO 21/08' },
+    { name:'ACT / DCE',      sub:'24/08 → 16/10',         start:'2026-08-24', end:'2026-10-16',  color:'#60a5fa', jalon:'Attribution 16/10' },
+    { name:'Prépa chantier', sub:'19/10 → 30/10',         start:'2026-10-19', end:'2026-10-30',  color:'#f97316', jalon:'OS 30/10' },
+    { name:'Travaux — DET',  sub:'02/11/26 → 02/07/27',   start:'2026-11-02', end:'2027-07-02',  color:'#f87171', jalon:'Fin travaux 02/07/27' },
+    { name:'Réception AOR',  sub:'05/07 → 16/07/2027',    start:'2027-07-05', end:'2027-07-16',  color:'#34d399', jalon:'🏠 Livraison 16/07/27' },
+  ];
+  const S = new Date('2026-04-01'), E = new Date('2027-08-01');
+  const total = (E - S) / 864e5;
+  const pct = d => ((new Date(d)-S)/864e5/total*100).toFixed(1);
+  const wid = (a,b) => (((new Date(b)-new Date(a))/864e5)/total*100).toFixed(1);
+  const todayPct = pct(new Date());
+  let html = '<div style="overflow-x:auto;padding:8px 0"><div style="min-width:480px">';
+  // Header mois abrégés
+  const months = ['A26','M26','J26','Jl26','A26','S26','O26','N26','D26','J27','F27','M27','Av27','M27','Jn27','Jl27'];
+  const mDates = ['2026-04-01','2026-05-01','2026-06-01','2026-07-01','2026-08-01','2026-09-01','2026-10-01','2026-11-01','2026-12-01','2027-01-01','2027-02-01','2027-03-01','2027-04-01','2027-05-01','2027-06-01','2027-07-01'];
+  html += '<div style="display:flex;margin-left:90px;margin-bottom:4px">';
+  mDates.forEach((d,i) => {
+    const l = pct(d);
+    const nxt = mDates[i+1]||'2027-08-01';
+    const w = wid(d, nxt);
+    html += `<div style="width:${w}%;font-size:8px;color:var(--text3);text-align:center;flex-shrink:0">${months[i]}</div>`;
+  });
+  html += '</div>';
+  // Phases
+  phases.forEach(ph => {
+    const l = pct(ph.start), w = wid(ph.start, ph.end);
+    const isStripe = ph.name === 'Instruction PC';
+    const bg = isStripe ? 'repeating-linear-gradient(90deg,#374151 0,#374151 5px,#4b5563 5px,#4b5563 10px)' : ph.color;
+    html += `<div style="display:flex;align-items:center;margin-bottom:6px">`;
+    html += `<div style="width:90px;flex-shrink:0;padding-right:8px;text-align:right"><div style="font-size:10px;font-weight:600;color:var(--text)">${ph.name}</div><div style="font-size:9px;color:var(--text3)">${ph.sub}</div></div>`;
+    html += `<div style="flex:1;position:relative;height:28px">`;
+    // grille mois
+    mDates.forEach(d => { html += `<div style="position:absolute;top:0;bottom:0;left:${pct(d)}%;width:1px;background:var(--border)"></div>`; });
+    // aujourd'hui
+    if(todayPct>0&&todayPct<100) html += `<div style="position:absolute;top:0;bottom:0;left:${todayPct}%;width:2px;background:rgba(108,143,255,.7);z-index:5"></div>`;
+    // barre
+    html += `<div style="position:absolute;top:50%;transform:translateY(-50%);left:${l}%;width:${w}%;height:18px;border-radius:5px;background:${bg};display:flex;align-items:center;padding:0 6px;overflow:hidden">`;
+    if(!isStripe && parseFloat(w)>6) html += `<span style="font-size:9px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden">${ph.jalon}</span>`;
+    html += `</div>`;
+    html += `</div></div>`;
+  });
+  // Jalons clés
+  html += '<div style="display:flex;align-items:center;margin-top:8px;margin-bottom:4px">';
+  html += '<div style="width:90px;flex-shrink:0;font-size:9px;color:var(--text3);text-align:right;padding-right:8px">Jalons clés</div>';
+  html += '<div style="flex:1;position:relative;height:20px">';
+  [
+    {d:'2026-04-18',l:'Séquestre',c:'#f87171'},
+    {d:'2026-06-08',l:'Prêt',c:'#f87171'},
+    {d:'2026-07-08',l:'Acte',c:'#f87171'},
+  ].forEach(ms => {
+    const x = pct(ms.d);
+    html += `<div style="position:absolute;top:50%;transform:translate(-50%,-50%);left:${x}%;width:10px;height:10px;background:${ms.c};border-radius:50%;border:2px solid #fff" title="${ms.l}"></div>`;
+    html += `<div style="position:absolute;top:-2px;left:${x}%;transform:translateX(-50%);font-size:8px;color:${ms.c};white-space:nowrap;font-weight:700">${ms.l}</div>`;
+  });
+  html += '</div></div>';
+  html += '</div></div>';
+  document.getElementById('gantt-mobile').innerHTML = html;
+})();
 
 // Countdown acte notaire
 function updateCountdown(){
