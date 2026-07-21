@@ -1,0 +1,640 @@
+<title>Arborescence — Projet Le Pradet</title>
+<style>
+  :root {
+    --bg:      #F7F8FC;
+    --bg2:     #FFFFFF;
+    --bg3:     #EEF1F8;
+    --bg4:     #E4E8F2;
+    --text:    #1A1F2E;
+    --text2:   #5C6478;
+    --text3:   #9AA0B4;
+    --border:  #DDE2EE;
+    --tree:    #C4CAD8;
+    --nas:     #2563EB;
+    --nas-bg:  rgba(37,99,235,.07);
+    --pc:      #16A34A;
+    --pc-bg:   rgba(22,163,74,.07);
+    --pixel:   #D97706;
+    --pixel-bg:rgba(217,119,6,.07);
+    --cloud:   #7C3AED;
+    --cloud-bg:rgba(124,58,237,.07);
+    --ok:      #16A34A;
+    --warn:    #D97706;
+    --mono:    'Cascadia Code','Fira Code','JetBrains Mono','Courier New',monospace;
+    --sans:    system-ui,-apple-system,'Segoe UI',sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:      #0E1116;
+      --bg2:     #161B22;
+      --bg3:     #1C2230;
+      --bg4:     #242C3A;
+      --text:    #CDD5E0;
+      --text2:   #8591A5;
+      --text3:   #4A5568;
+      --border:  #242C3A;
+      --tree:    #2D3A4E;
+      --nas-bg:  rgba(59,130,246,.09);
+      --pc-bg:   rgba(34,197,94,.08);
+      --pixel-bg:rgba(251,191,36,.08);
+      --cloud-bg:rgba(167,139,250,.09);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg:#F7F8FC;--bg2:#FFFFFF;--bg3:#EEF1F8;--bg4:#E4E8F2;
+    --text:#1A1F2E;--text2:#5C6478;--text3:#9AA0B4;
+    --border:#DDE2EE;--tree:#C4CAD8;
+    --nas-bg:rgba(37,99,235,.07);--pc-bg:rgba(22,163,74,.07);
+    --pixel-bg:rgba(217,119,6,.07);--cloud-bg:rgba(124,58,237,.07);
+  }
+  :root[data-theme="dark"] {
+    --bg:#0E1116;--bg2:#161B22;--bg3:#1C2230;--bg4:#242C3A;
+    --text:#CDD5E0;--text2:#8591A5;--text3:#4A5568;
+    --border:#242C3A;--tree:#2D3A4E;
+    --nas-bg:rgba(59,130,246,.09);--pc-bg:rgba(34,197,94,.08);
+    --pixel-bg:rgba(251,191,36,.08);--cloud-bg:rgba(167,139,250,.09);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.6;padding:0 0 60px}
+
+  /* ── Header ── */
+  .page-header{padding:32px 28px 24px;border-bottom:1px solid var(--border);background:var(--bg2)}
+  .page-title{font-size:20px;font-weight:700;letter-spacing:-.02em;color:var(--text);margin-bottom:4px}
+  .page-sub{font-size:12px;color:var(--text3);font-family:var(--mono)}
+
+  /* ── Sync flow ── */
+  .flow{display:flex;align-items:center;gap:0;padding:20px 28px;background:var(--bg3);border-bottom:1px solid var(--border);overflow-x:auto;flex-wrap:nowrap}
+  .flow-node{display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;min-width:80px}
+  .flow-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;border:1.5px solid var(--border)}
+  .flow-icon.nas{background:var(--nas-bg);border-color:var(--nas)}
+  .flow-icon.pc{background:var(--pc-bg);border-color:var(--pc)}
+  .flow-icon.pixel{background:var(--pixel-bg);border-color:var(--pixel)}
+  .flow-icon.cloud{background:var(--cloud-bg);border-color:var(--cloud)}
+  .flow-label{font-size:10px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.06em;text-align:center;line-height:1.3}
+  .flow-arrow{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:2px;padding:0 6px}
+  .flow-arrow-line{font-size:18px;color:var(--text3);line-height:1;font-family:var(--mono)}
+  .flow-arrow-label{font-size:9px;color:var(--text3);white-space:nowrap;font-family:var(--mono)}
+
+  /* ── Platform sections ── */
+  .section{margin:16px 16px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--bg2)}
+  .section-header{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--border)}
+  .section-header.nas{border-left:4px solid var(--nas);background:var(--nas-bg)}
+  .section-header.pc{border-left:4px solid var(--pc);background:var(--pc-bg)}
+  .section-header.pixel{border-left:4px solid var(--pixel);background:var(--pixel-bg)}
+  .section-header.cloud{border-left:4px solid var(--cloud);background:var(--cloud-bg)}
+  .sh-icon{font-size:22px;flex-shrink:0}
+  .sh-title{font-size:14px;font-weight:700;color:var(--text)}
+  .sh-meta{font-size:11px;color:var(--text2);font-family:var(--mono);margin-top:1px}
+  .sh-badge{margin-left:auto;font-size:10px;font-weight:600;padding:3px 9px;border-radius:20px;white-space:nowrap}
+  .badge-nas{background:rgba(37,99,235,.15);color:var(--nas)}
+  .badge-pc{background:rgba(22,163,74,.15);color:var(--pc)}
+  .badge-pixel{background:rgba(217,119,6,.15);color:var(--pixel)}
+  .badge-cloud{background:rgba(124,58,237,.15);color:var(--cloud)}
+
+  /* ── Tree ── */
+  .tree{padding:10px 14px 14px;font-family:var(--mono);font-size:12px}
+  details{margin-top:2px}
+  details>div{padding-left:20px;border-left:1px solid var(--tree);margin-left:7px}
+  summary{cursor:pointer;padding:4px 6px;border-radius:5px;list-style:none;display:flex;align-items:baseline;gap:6px;user-select:none;color:var(--text);position:relative}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:'▸';font-size:9px;color:var(--text3);flex-shrink:0;transition:transform .15s}
+  details[open]>summary::before{transform:rotate(90deg)}
+  summary:hover{background:var(--bg3)}
+  .leaf{padding:3px 6px 3px 26px;color:var(--text2);position:relative;display:flex;align-items:baseline;gap:6px}
+  .leaf::before{content:'·';position:absolute;left:14px;color:var(--tree)}
+
+  /* Node name styling */
+  .d-name{color:var(--text);font-weight:500}
+  .f-name{color:var(--text2)}
+  .f-name.pdf{color:#E55;}
+  .f-name.md{color:#4B9EF0;}
+  .f-name.json{color:#F0B44B;}
+  .f-name.ps1{color:#5CAD88;}
+  .f-name.sh{color:#5CAD88;}
+  .f-name.html{color:#C084FC;}
+  .f-name.img{color:#FB923C;}
+  .f-name.eml{color:#94A3B8;}
+
+  /* Badges inline */
+  .cnt{display:inline-flex;align-items:center;font-size:10px;padding:1px 6px;border-radius:10px;background:var(--bg3);color:var(--text3);border:1px solid var(--border);margin-left:4px;font-family:var(--sans);font-weight:600}
+  .tag{display:inline-flex;align-items:center;font-size:10px;padding:1px 6px;border-radius:10px;margin-left:4px;font-family:var(--sans);font-weight:600}
+  .tag-ok{background:rgba(22,163,74,.12);color:var(--ok)}
+  .tag-warn{background:rgba(217,119,6,.12);color:var(--warn)}
+  .tag-sync{background:rgba(37,99,235,.12);color:var(--nas)}
+  .tag-git{background:rgba(124,58,237,.12);color:var(--cloud)}
+
+  /* Group separator inside tree */
+  .tree-sep{height:1px;background:var(--border);margin:8px 0 8px 6px}
+
+  /* Root paths */
+  .root-path{font-family:var(--mono);font-size:11px;color:var(--text3);padding:6px 18px;background:var(--bg3);border-bottom:1px solid var(--border)}
+
+  /* Stat bar */
+  .stat-bar{display:flex;gap:16px;padding:10px 18px;background:var(--bg3);border-top:1px solid var(--border);flex-wrap:wrap}
+  .stat{font-size:11px;color:var(--text2)}<span class="stat-val" style="font-weight:700;color:var(--text);margin-right:3px">X</span>
+  .stat-val{font-weight:700;color:var(--text);margin-right:3px;font-family:var(--mono)}
+
+  @media(min-width:640px){.section{margin:16px 24px 0}.flow{padding:20px 24px}.page-header{padding:32px 32px 24px}}
+</style>
+
+<!-- Header -->
+<div class="page-header">
+  <div class="page-title">Arborescence — Projet Le Pradet</div>
+  <div class="page-sub">60 rue Jules Verne · Le Pradet 83220 · PC 083 098 26 00013 · Synth. 2026-07-14</div>
+</div>
+
+<!-- Flux de synchronisation -->
+<div class="flow">
+  <div class="flow-node">
+    <div class="flow-icon pixel">📱</div>
+    <div class="flow-label">Pixel 10<br>Pro</div>
+  </div>
+  <div class="flow-arrow">
+    <div class="flow-arrow-line">→</div>
+    <div class="flow-arrow-label">No Contest<br>+ Google Photos</div>
+  </div>
+  <div class="flow-node">
+    <div class="flow-icon nas">🗄️</div>
+    <div class="flow-label">NAS<br>Synology</div>
+  </div>
+  <div class="flow-arrow">
+    <div class="flow-arrow-line">⇄</div>
+    <div class="flow-arrow-label">SynologyDrive<br>sync auto</div>
+  </div>
+  <div class="flow-node">
+    <div class="flow-icon pc">💻</div>
+    <div class="flow-label">PC Dell<br>XPS 13</div>
+  </div>
+  <div class="flow-arrow">
+    <div class="flow-arrow-line">→</div>
+    <div class="flow-arrow-label">git push<br>dashboard</div>
+  </div>
+  <div class="flow-node">
+    <div class="flow-icon cloud">☁️</div>
+    <div class="flow-label">GitHub<br>Pages</div>
+  </div>
+  <div class="flow-arrow">
+    <div class="flow-arrow-line">·</div>
+    <div class="flow-arrow-label"></div>
+  </div>
+  <div class="flow-node">
+    <div class="flow-icon cloud" style="border-color:var(--pixel);background:var(--pixel-bg)">📅</div>
+    <div class="flow-label">Google<br>Calendar</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     NAS SYNOLOGY
+═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header nas">
+    <span class="sh-icon">🗄️</span>
+    <div>
+      <div class="sh-title">NAS Synology DS223j</div>
+      <div class="sh-meta">10.0.0.20 · Volume1/SynologyDrive/ · Partagé via DSM 7</div>
+    </div>
+    <span class="sh-badge badge-nas">Source principale</span>
+  </div>
+
+  <div class="tree">
+
+    <!-- ADMINISTRATIF -->
+    <details open>
+      <summary><span class="d-name">📁 ADMINISTRATIF/</span></summary>
+      <div>
+
+        <details open>
+          <summary><span class="d-name">📁 URBANISME/</span><span class="cnt">9</span><span class="tag tag-ok">✅ constat J+0</span></summary>
+          <div>
+            <div class="leaf"><span class="f-name pdf">2026-07-12_PC-083-098-26-00013_CONSTAT-AFFICHAGE_J0_No-Contest.pdf</span><span class="tag tag-ok">archivé</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-06-18_MAIRIE_PC_Arrete-Accorde-Prescriptions.pdf</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-05-22_MAIRIE_PC_Demande-Pieces-Manquantes-PC2-PC3-PC5.pdf</span></div>
+            <div class="leaf"><span class="f-name pdf">2011-12-21_MAIRIE_PLU_Zone-UDd.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2011-12-21_MAIRIE_PLU_Zone-UDd Carte.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2020-11-10_MAIRIE_PLU_Liste-Lotissements-Actifs-Pradet.pdf</span> <span class="f-name md">+ .md</span></div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="d-name">📁 PERMIS/PC-2026/</span><span class="cnt">25</span><span class="tag tag-ok">PC accordé 18/06</span></summary>
+          <div>
+            <div class="leaf"><span class="f-name pdf">2026-05-06_BADIN_PC_CERFA13406-16-Formulaire-Demande-Permis.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-05-06_BADIN_PC_PCMI1-Plan-Situation.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-05-06_BADIN_PC_PCMI2-Plan-Masse.pdf</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-05-06_BADIN_PC_PCMI3-Plan-Coupe.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-05-06_BADIN_PC_PCMI4-Notice-Descriptive.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-05-06_BADIN_PC_PCMI5-Plans-Facades-Toitures.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-05-06_BADIN_PC_PCMI6-Insertion-Paysagere.pdf</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-05-06_BADIN_PC_PCMI7-Photo-Environnement-Proche.pdf</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-05-06_BADIN_PC_PCMI8-Photo-Environnement-Lointain.pdf</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-05-06_BADIN_PC_PCMI13-Attestation-Parasismique.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-05-06_BADIN_PC_Attestation-RE2020-Extension45m2.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-05-06_BADIN_PD_A1-Plan-Masse-Demolition.pdf</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-05-06_BADIN_PD_A2-Photographie-Demolition.pdf</span></div>
+            <div class="leaf"><span class="f-name eml">2026-05-06_MAIRIE_PC_AEE-745.eml</span></div>
+            <div class="leaf"><span class="f-name eml">2026-05-06_MAIRIE_PC_Recepisse-Depot-Electronique-745.eml</span></div>
+            <div class="leaf"><span class="f-name md">2026-05-06_MAIRIE_PC_Recepisse-Depot-Electronique-AEE745.md</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-05-06_ORDRE-ARCHITECTES_PC_Recepisse-Declaration-S26268PC000803757.pdf</span> <span class="f-name md">+ .md</span></div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="d-name">📁 DIAGNOSTICS ET RISQUES/</span><span class="cnt">12</span></summary>
+          <div>
+            <div class="leaf"><span class="f-name pdf">2025-05-15_DIAGNOSTICS_DIAG_Amiante.pdf</span> <span class="f-name md">+ .md</span><span class="tag tag-warn">⚠️ désamiantage</span></div>
+            <div class="leaf"><span class="f-name pdf">2025-05-15_DIAGNOSTICS_DIAG_Termites.pdf</span> <span class="f-name md">+ .md</span><span class="tag tag-warn">⚠️</span></div>
+            <div class="leaf"><span class="f-name pdf">2025-05-15_DIAGNOSTICS_DIAG_Electricite.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2025-05-15_DIAGNOSTICS_DIAG_Energetique-Audit.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2025-05-15_DIAGNOSTICS_DIAG_Gaz.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2025-05-15_DIAGNOSTICS_DIAG_Etat-Risques.pdf</span> <span class="f-name md">+ .md</span></div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="d-name">📁 NOTAIRE/</span><span class="cnt">2</span></summary>
+          <div>
+            <div class="leaf"><span class="f-name pdf">2026-04-08_NOTAIRE_COMPROMIS_Devouge-Strebe-Lemoine.pdf</span></div>
+            <div class="leaf"><span class="f-name md">2026-04-08_NOTAIRE_COMPROMIS_Devouge-Strebe-Lemoine.md</span></div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="d-name">📁 MOE/</span><span class="cnt">1</span></summary>
+          <div>
+            <div class="leaf"><span class="f-name md">2026-06-30_VISIO_Badin-CR.md</span></div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="d-name">📁 REGLEMENTAIRE/LOTISSEMENT_L'AVENIR/</span><span class="cnt">4</span></summary>
+          <div>
+            <div class="leaf"><span class="f-name pdf">1968-03-25_MAIRIE_REGLEMENT_Lotissement-Avenir.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">1972-12-04_MAIRIE_REGLEMENT_Cahier-Charges-Modif.pdf</span> <span class="f-name md">+ .md</span></div>
+          </div>
+        </details>
+
+      </div>
+    </details>
+
+    <div class="tree-sep"></div>
+
+    <!-- CONTRATS -->
+    <details open>
+      <summary><span class="d-name">📁 CONTRATS/MOE/</span></summary>
+      <div>
+        <div class="leaf"><span class="f-name pdf">2026-04-01_BADIN_CONTRAT_MOE-26-004.pdf</span> <span class="f-name md">+ .md</span><span class="tag tag-ok">42 480 € TTC · signé</span></div>
+        <details>
+          <summary><span class="d-name">📁 COMPTES-RENDUS/</span><span class="cnt">3</span></summary>
+          <div>
+            <div class="leaf"><span class="f-name md">2026-05-02_BADIN_CR_Visio-APS.md</span></div>
+            <div class="leaf"><span class="f-name md">2026-05-06_BADIN_EMAIL_PC-Depose-Prochaines-Etapes.md</span></div>
+            <div class="leaf"><span class="f-name md">2026-05-07_BADIN_EMAIL_Factures-Reglement-RIB.md</span></div>
+          </div>
+        </details>
+        <details>
+          <summary><span class="d-name">📁 FACTURES/</span><span class="cnt">7</span><span class="tag tag-ok">9 558 € réglés</span></summary>
+          <div>
+            <div class="leaf"><span class="f-name pdf">2026-05-05_BADIN_FACTURE_F26-0010-ESQ-Phase01-4248-TTC.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-05-05_BADIN_FACTURE_F26-0011-APS-Phase02-3186-TTC.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-05-05_BADIN_FACTURE_F26-0012-PC-Phase03-2124-TTC.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-05-06_BADIN_RIB_Parcel-Architecture.pdf</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <div class="tree-sep"></div>
+
+    <!-- PLANS -->
+    <details>
+      <summary><span class="d-name">📁 PLANS/</span></summary>
+      <div>
+        <details>
+          <summary><span class="d-name">📁 ESQUISSES/</span><span class="cnt">10</span></summary>
+          <div>
+            <div class="leaf"><span class="f-name pdf">2026-04-03_BADIN_ESQUISSE_Extension-RDC-FAISA.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-04-25_BADIN_ESQUISSE_Option-A.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-04-25_BADIN_ESQUISSE_Option-B.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-04-28_BADIN_ESQUISSE_Option-C.pdf</span> <span class="f-name md">+ .md</span><span class="tag tag-ok">retenue</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-05-01_BADIN_APS_Avant-Projet-Sommaire.pdf</span> <span class="f-name md">+ .md</span></div>
+          </div>
+        </details>
+        <details>
+          <summary><span class="d-name">📁 RELEVES/</span><span class="cnt">4</span></summary>
+          <div>
+            <div class="leaf"><span class="f-name pdf">2026-03-31_MEASR_RELEVE_Lemoine-154pages.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-04-25_BADIN_RELEVE_Mesures-MOE26004.pdf</span> <span class="f-name md">+ .md</span></div>
+          </div>
+        </details>
+        <details>
+          <summary><span class="d-name">📁 CADASTRE/</span><span class="cnt">2</span></summary>
+          <div>
+            <div class="leaf"><span class="f-name pdf">2025-11-24_CADASTRE_PLAN_Parcelle-AH105.pdf</span> <span class="f-name md">+ .md</span></div>
+          </div>
+        </details>
+        <details>
+          <summary><span class="d-name">📁 EXISTANT_1969/</span><span class="cnt">6</span></summary>
+          <div>
+            <div class="leaf"><span class="f-name pdf">1969-04-24_MAIRIE_PC_Initial-Construction.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name img">PLAN DE SITUATION RDC + R+1 + Coupe AB.jpeg</span><span class="cnt">4 fichiers</span></div>
+          </div>
+        </details>
+        <div class="leaf"><span class="f-name">📁 SURFACES/</span> <span class="cnt">1</span> <span style="color:var(--text3);font-size:11px">LE_PRADET_SURFACE_DETAIL.url</span></div>
+      </div>
+    </details>
+
+    <div class="tree-sep"></div>
+
+    <!-- PHOTOS -->
+    <details>
+      <summary><span class="d-name">📁 PHOTOS/</span><span class="cnt">194 fichiers</span></summary>
+      <div>
+        <details>
+          <summary><span class="d-name">📁 AVANT/ARCHI_BADIN/</span><span class="cnt">150</span><span class="tag tag-sync">visite 2026</span></summary>
+          <div>
+            <div class="leaf"><span class="f-name img">IMG_3714 → IMG_3791.JPG</span><span class="cnt">75 photos</span></div>
+            <div class="leaf"><span class="f-name img">IMG_3714 → IMG_3791.MOV</span><span class="cnt">71 vidéos</span></div>
+            <div class="leaf"><span class="f-name img">FullSizeRender-1 → 4.jpeg + .MOV</span><span class="cnt">10 médias</span></div>
+          </div>
+        </details>
+        <div class="leaf"><span class="d-name">📁 AVANT/ISABELLE/</span><span class="cnt">43</span></div>
+        <div class="leaf"><span class="d-name">📁 APRES/</span><span class="cnt">1</span> <span style="color:var(--text3)">— en cours</span></div>
+      </div>
+    </details>
+
+    <div class="tree-sep"></div>
+
+    <!-- FINANCIER -->
+    <details>
+      <summary><span class="d-name">📁 FINANCIER/</span></summary>
+      <div>
+        <details>
+          <summary><span class="d-name">📁 FINANCEMENT/</span><span class="cnt">4</span></summary>
+          <div>
+            <div class="leaf"><span class="f-name pdf">2026-04-08_LCL_SIMULATION_Financement-Global.pdf</span> <span class="f-name md">+ .md</span></div>
+            <div class="leaf"><span class="f-name pdf">2026-04-17_ORPI_ESTIMATION_Appartement-Constellation-Tassin.pdf</span> <span class="f-name md">+ .md</span></div>
+          </div>
+        </details>
+        <div class="leaf"><span class="d-name">📁 DEVIS/</span> <span style="color:var(--text3)">— vide · à alimenter</span></div>
+        <div class="leaf"><span class="d-name">📁 FACTURES/</span> <span style="color:var(--text3)">— vide · à alimenter</span></div>
+      </div>
+    </details>
+
+    <div class="tree-sep"></div>
+
+    <!-- ENTREPRISES -->
+    <details>
+      <summary><span class="d-name">📁 ENTREPRISES/</span><span class="cnt">8 corps de métier</span></summary>
+      <div>
+        <div class="leaf"><span class="d-name">📁 ASCENSEUR/</span> <span style="color:var(--text3)">— vide</span></div>
+        <div class="leaf"><span class="d-name">📁 GROS_OEUVRE/</span> <span style="color:var(--text3)">— vide</span></div>
+        <div class="leaf"><span class="d-name">📁 ISOLATION_MENUISERIES/</span> <span style="color:var(--text3)">— vide</span></div>
+        <div class="leaf"><span class="d-name">📁 ELECTRICITE/</span> <span style="color:var(--text3)">— vide</span></div>
+        <div class="leaf"><span class="d-name">📁 PLOMBERIE_CVC/</span> <span style="color:var(--text3)">— vide</span></div>
+        <div class="leaf"><span class="d-name">📁 CARRELAGE_REVETEMENTS/</span> <span style="color:var(--text3)">— vide</span></div>
+        <div class="leaf"><span class="d-name">📁 PISCINE/</span> <span style="color:var(--text3)">— vide</span></div>
+        <div class="leaf"><span class="d-name">📁 AUTRES/</span> <span style="color:var(--text3)">— vide</span></div>
+      </div>
+    </details>
+
+    <div class="tree-sep"></div>
+
+    <!-- DASHBOARD + SCRIPTS -->
+    <details>
+      <summary><span class="d-name">📁 DASHBOARD/</span><span class="cnt">3</span></summary>
+      <div>
+        <div class="leaf"><span class="f-name html">dashboard_pradet.html</span><span class="tag tag-sync">miroir GitHub Pages</span></div>
+        <div class="leaf"><span class="f-name html">architecture-pradet.html</span></div>
+        <div class="leaf"><span class="f-name html">gantt-moe-pradet.html</span></div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="d-name">📁 SCRIPTS/</span><span class="cnt">2</span></summary>
+      <div>
+        <div class="leaf"><span class="f-name json">pradet-echeances.json</span><span class="tag tag-ok">source de vérité</span></div>
+        <div class="leaf"><span class="f-name sh">pradet-briefing-matin.sh</span></div>
+      </div>
+    </details>
+
+    <div class="leaf"><span class="d-name">📁 Document à traiter/</span> <span style="color:var(--ok);font-size:11px">✅ vide (traité)</span></div>
+
+  </div>
+
+  <div class="stat-bar">
+    <span class="stat"><span class="stat-val">~350</span>fichiers indexés</span>
+    <span class="stat"><span class="stat-val">11</span>dossiers de 1er niveau</span>
+    <span class="stat"><span class="stat-val">PDF+MD</span>nommage horodaté</span>
+    <span class="stat"><span class="stat-val">10.0.0.20</span>accès réseau local</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     PC DELL XPS 13
+═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header pc">
+    <span class="sh-icon">💻</span>
+    <div>
+      <div class="sh-title">PC Dell XPS 13 · Windows 11 Home</div>
+      <div class="sh-meta">C:\Users\monak\ · Synchronisé NAS via SynologyDrive Desktop</div>
+    </div>
+    <span class="sh-badge badge-pc">Poste principal</span>
+  </div>
+
+  <div class="tree">
+
+    <details open>
+      <summary><span class="d-name">📁 SynologyDrive\</span><span class="tag tag-sync">⇄ miroir NAS</span></summary>
+      <div>
+        <div class="leaf" style="color:var(--text3);font-style:italic">→ Contenu identique à NAS/SynologyDrive/ (voir ci-dessus)</div>
+      </div>
+    </details>
+
+    <div class="tree-sep"></div>
+
+    <details open>
+      <summary><span class="d-name">📁 Downloads\Claude Code\</span></summary>
+      <div>
+        <details open>
+          <summary><span class="d-name">📁 DASHBOARD-LE-PRADET\</span><span class="tag tag-git">git repo → GitHub Pages</span></summary>
+          <div>
+            <div class="leaf"><span class="f-name html">dashboard_pradet.html</span><span class="tag tag-ok">commit fc59fd6</span></div>
+            <div class="leaf"><span class="f-name">.gitignore</span></div>
+            <div class="leaf"><span class="f-name md">README.md</span></div>
+          </div>
+        </details>
+        <details>
+          <summary><span class="d-name">📁 .claude\</span><span class="cnt">settings projet</span></summary>
+          <div>
+            <div class="leaf"><span class="f-name json">settings.json</span> <span style="color:var(--text3)">bypassPermissions · autorisations projet</span></div>
+            <div class="leaf"><span class="f-name json">settings.local.json</span></div>
+          </div>
+        </details>
+      </div>
+    </details>
+
+    <div class="tree-sep"></div>
+
+    <details open>
+      <summary><span class="d-name">📁 .claude\</span><span class="cnt">config global Claude Code</span></summary>
+      <div>
+        <div class="leaf"><span class="f-name json">settings.json</span> <span style="color:var(--text3)">profil global · autorisations permanentes</span></div>
+
+        <details open>
+          <summary><span class="d-name">📁 pradet-monitor\</span><span class="cnt">17 scripts</span></summary>
+          <div>
+            <div class="leaf"><span class="f-name ps1">send-telegram.ps1</span> <span style="color:var(--text3)">→ notifications Telegram</span></div>
+            <div class="leaf"><span class="f-name ps1">send-briefing.ps1</span> <span style="color:var(--text3)">lit pradet-echeances.json</span></div>
+            <div class="leaf"><span class="f-name ps1">send-briefing-test.ps1</span></div>
+            <div class="leaf"><span class="f-name ps1">send-notifications.ps1</span></div>
+            <div class="leaf"><span class="f-name ps1">notify-synology-change.ps1</span></div>
+            <div class="leaf"><span class="f-name ps1">scan-files.ps1</span></div>
+            <div class="leaf"><span class="f-name ps1">pdf-to-md.ps1</span> <span style="color:var(--text3)">conversion PDF→Markdown</span></div>
+            <div class="leaf"><span class="f-name ps1">cleanup-doublons.ps1</span></div>
+            <div class="leaf"><span class="f-name ps1">rename-reglements.ps1</span></div>
+            <div class="leaf"><span class="f-name ps1">rename-temp.ps1</span></div>
+            <div class="leaf"><span class="f-name json">config.json</span></div>
+            <div class="leaf"><span class="f-name json">agenda-projet.json</span></div>
+            <div class="leaf"><span class="f-name json">fichiers-analyses.json</span></div>
+            <div class="leaf"><span class="f-name json">liste-expéditeurs.json</span></div>
+            <div class="leaf"><span class="f-name md">regles-projet.md</span> <span style="color:var(--text3)">règles opérationnelles Claude</span></div>
+            <div class="leaf"><span class="f-name">activity.log</span></div>
+            <div class="leaf"><span class="f-name">synology-last-scan.txt</span></div>
+          </div>
+        </details>
+
+        <details>
+          <summary><span class="d-name">📁 projects\</span><span class="cnt">mémoire conversation</span></summary>
+          <div>
+            <div class="leaf"><span class="f-name md">MEMORY.md</span> <span style="color:var(--text3)">index mémoire projet</span></div>
+            <div class="leaf"><span class="f-name md">project_pradet_master.md</span></div>
+            <div class="leaf"><span class="f-name md">feedback_autonomie.md</span></div>
+            <div class="leaf"><span class="f-name md">feedback_chrome_browser.md</span></div>
+            <div class="leaf"><span class="f-name md">user_profile.md</span></div>
+            <div class="leaf"><span class="f-name md">infra_sync.md</span></div>
+          </div>
+        </details>
+
+        <div class="leaf"><span class="d-name">📁 sessions\</span> <span style="color:var(--text3)">transcripts JSONL</span></div>
+        <div class="leaf"><span class="d-name">📁 scheduled-tasks\</span></div>
+        <div class="leaf"><span class="d-name">📁 backups\</span></div>
+      </div>
+    </details>
+
+  </div>
+
+  <div class="stat-bar">
+    <span class="stat"><span class="stat-val">17</span>scripts PowerShell/Bash</span>
+    <span class="stat"><span class="stat-val">Git</span>DASHBOARD-LE-PRADET → GitHub Pages</span>
+    <span class="stat"><span class="stat-val">Sync</span>SynologyDrive Desktop en temps réel</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     PIXEL 10 PRO
+═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header pixel">
+    <span class="sh-icon">📱</span>
+    <div>
+      <div class="sh-title">Google Pixel 10 Pro</div>
+      <div class="sh-meta">Android · Google Photos sync auto · App No Contest</div>
+    </div>
+    <span class="sh-badge badge-pixel">Mobile terrain</span>
+  </div>
+
+  <div class="tree">
+
+    <details open>
+      <summary><span class="d-name">📷 Google Photos</span><span class="tag tag-sync">sync auto → Google Drive</span></summary>
+      <div>
+        <div class="leaf">Photos terrain · visites · documents photographiés</div>
+        <div class="leaf">Backup illimité → compte monakea@gmail.com</div>
+      </div>
+    </details>
+
+    <details open>
+      <summary><span class="d-name">📋 App No Contest</span><span class="tag tag-ok">constat d'affichage légal</span></summary>
+      <div>
+        <div class="leaf"><span class="f-name pdf">Constat J+0 · 12/07/2026</span> <span style="color:var(--ok)">→ archivé NAS URBANISME/</span></div>
+        <div class="leaf"><span class="f-name">Constat J+30 · 12/08/2026</span> <span style="color:var(--warn)">— à faire</span></div>
+        <div class="leaf"><span class="f-name">Constat J+62 · 13/09/2026</span> <span style="color:var(--warn)">— à faire</span></div>
+        <div class="leaf" style="color:var(--text3);font-size:11px">Flux : No Contest → SynologyDrive/Document à traiter/ → archivage URBANISME/</div>
+      </div>
+    </details>
+
+  </div>
+
+  <div class="stat-bar">
+    <span class="stat"><span class="stat-val">3</span>constats No Contest prévus</span>
+    <span class="stat"><span class="stat-val">1/3</span>effectué et archivé (J+0 · 12/07)</span>
+    <span class="stat"><span class="stat-val">12/09</span>fin délai recours tiers</span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     CLOUD / SERVICES
+═══════════════════════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header cloud">
+    <span class="sh-icon">☁️</span>
+    <div>
+      <div class="sh-title">Cloud &amp; Services en ligne</div>
+      <div class="sh-meta">GitHub · Google Calendar · Telegram · Google Drive</div>
+    </div>
+    <span class="sh-badge badge-cloud">Services tiers</span>
+  </div>
+
+  <div class="tree">
+
+    <details open>
+      <summary><span class="d-name">🌐 GitHub Pages — monakea65/DASHBOARD-LE-PRADET</span><span class="tag tag-ok">public</span></summary>
+      <div>
+        <div class="leaf"><span class="f-name html">dashboard_pradet.html</span><span class="tag tag-ok">commit fc59fd6</span></div>
+        <div class="leaf" style="color:var(--text3);font-size:11px">Source : PC XPS / Downloads\Claude Code\DASHBOARD-LE-PRADET\</div>
+        <div class="leaf" style="color:var(--text3);font-size:11px">Déployé par git push main · mise à jour manuelle</div>
+      </div>
+    </details>
+
+    <details open>
+      <summary><span class="d-name">📅 Google Calendar — monakea@gmail.com</span><span class="cnt">8 événements Pradet</span></summary>
+      <div>
+        <div class="leaf"><span class="tag tag-ok">✅ 12/07</span> Panneau PC posé + constat No Contest J+0</div>
+        <div class="leaf"><span class="tag tag-ok">✅ 14/07</span> CACI accordée — assurance prêt</div>
+        <div class="leaf"><span class="tag tag-warn">📞 15/07</span> Appel LCL — offre de prêt formelle</div>
+        <div class="leaf"><span style="color:var(--text3)">📷 12/08</span> Photo J+30 No Contest</div>
+        <div class="leaf"><span style="color:var(--text3)">⚖️ 07/09</span> Acte authentique (TBC)</div>
+        <div class="leaf"><span style="color:var(--text3)">✅ 12/09</span> Fin délai recours tiers</div>
+        <div class="leaf"><span style="color:var(--text3)">📷 13/09</span> Photo finale J+62 + APD</div>
+        <div class="leaf"><span style="color:var(--text3)">⚠️ 15/10</span> Assurance DO — avant chantier</div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="d-name">📨 Telegram Bot — Briefing Pradet</span></summary>
+      <div>
+        <div class="leaf">Notifications push → déclenché par pradet-monitor/ (PC)</div>
+        <div class="leaf">Scripts : send-telegram.ps1 · send-briefing.ps1</div>
+      </div>
+    </details>
+
+    <details>
+      <summary><span class="d-name">🗂️ Google Drive — monakea@gmail.com</span></summary>
+      <div>
+        <div class="leaf">Sync Google Photos (Pixel 10 Pro)</div>
+        <div class="leaf">Gmail — correspondances projet (notaire, LCL, CACI, Badin)</div>
+      </div>
+    </details>
+
+  </div>
+
+  <div class="stat-bar">
+    <span class="stat"><span class="stat-val">8</span>événements Calendar Pradet</span>
+    <span class="stat"><span class="stat-val">3</span>services actifs (GitHub · Calendar · Telegram)</span>
+  </div>
+</div>
