@@ -572,13 +572,13 @@ function showPane(id){
     { name:'ESQ',            sub:'25/04 → 28/04',         start:'2026-04-25', end:'2026-04-28',  color:'#f87171', jalon:'Valid. ESQ 28/04' },
     { name:'APS',            sub:'30/04 → 02/05',         start:'2026-04-30', end:'2026-05-02',  color:'#a78bfa', jalon:'Valid. APS 02/05' },
     { name:'PC — Dépôt',     sub:'dépôt 05/05',           start:'2026-05-03', end:'2026-05-05',  color:'#fbbf24', jalon:'✅ Dépôt 05/05' },
-    { name:'APD',            sub:'post-acte 09/09',       start:'2026-09-15', end:'2026-10-02',  color:'#818cf8', jalon:'APD post-acte' },
+    { name:'APD',            sub:'juil → août 26',        start:'2026-07-30', end:'2026-08-31',  color:'#818cf8', jalon:'APD en cours' },
     { name:'Instruction PC', sub:'✅ Accordé 18/06/2026', start:'2026-05-05', end:'2026-06-18',  color:'#34d399', jalon:'✅ PC accordé 18/06' },
-    { name:'PRO',            sub:'15/09 → 31/10/26',     start:'2026-09-15', end:'2026-10-31',  color:'#34d399', jalon:'Valid. PRO oct 26' },
-    { name:'ACT / DCE',      sub:'nov 26 → jan 27',      start:'2026-11-02', end:'2027-01-16',  color:'#60a5fa', jalon:'Attribution jan 27' },
-    { name:'Prépa chantier', sub:'jan → fév 2027',       start:'2027-01-18', end:'2027-02-28',  color:'#f97316', jalon:'OS fév 27' },
-    { name:'Travaux — DET',  sub:'mars 27 → nov 27',     start:'2027-03-01', end:'2027-11-01',  color:'#f87171', jalon:'Fin travaux nov 27' },
-    { name:'Réception AOR',  sub:'nov → déc 2027',       start:'2027-11-03', end:'2027-12-05',  color:'#34d399', jalon:'🏠 Livraison déc 27' },
+    { name:'PRO',            sub:'sept 26',               start:'2026-09-01', end:'2026-09-30',  color:'#34d399', jalon:'Valid. PRO sept 26' },
+    { name:'ACT / DCE',      sub:'oct 26',                start:'2026-10-01', end:'2026-10-31',  color:'#60a5fa', jalon:'Attribution oct 26' },
+    { name:'Prépa chantier', sub:'nov 26',                start:'2026-11-01', end:'2026-11-14',  color:'#f97316', jalon:'OS nov 26' },
+    { name:'Travaux — DET',  sub:'nov 26 → juil 27',     start:'2026-11-15', end:'2027-07-31',  color:'#f87171', jalon:'Fin travaux juil 27' },
+    { name:'Réception AOR',  sub:'août → sept 2027',     start:'2027-08-01', end:'2027-09-30',  color:'#34d399', jalon:'🏠 Livraison sept 27' },
   ];
   const S = new Date('2026-04-01'), E = new Date('2027-12-15');
   const total = (E - S) / 864e5;
@@ -623,7 +623,8 @@ function showPane(id){
     {d:'2026-04-18',l:'Séquestre',c:'#f87171'},
     {d:'2026-08-09',l:'Offre signée',c:'#fbbf24'},
     {d:'2026-09-09',l:'Acte 11h',c:'#6c8fff'},
-    {d:'2027-03-01',l:'Travaux',c:'#f87171'},
+    {d:'2026-11-15',l:'Travaux',c:'#f87171'},
+    {d:'2027-09-01',l:'Livraison',c:'#34d399'},
   ].forEach(ms => {
     const x = pct(ms.d);
     html += `<div style="position:absolute;top:50%;transform:translate(-50%,-50%);left:${x}%;width:10px;height:10px;background:${ms.c};border-radius:50%;border:2px solid #fff" title="${ms.l}"></div>`;
