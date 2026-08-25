@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0f0f1a">
-<title>Projet Le Pradet â€” Dashboard</title>
+<title>Projet Le Pradet — Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0f0f1a;--bg2:#16162a;--bg3:#1e1e35;--bg4:#252540;--accent:#6c8fff;--accent2:#a78bfa;--success:#34d399;--warning:#fbbf24;--danger:#f87171;--info:#60a5fa;--text:#e8e8f0;--text2:#9999b8;--text3:#6666a0;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);--radius:12px;--radius-sm:8px}
@@ -87,9 +87,9 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 .mono{font-family:'DM Mono',monospace}
 @media(min-width:600px){.main{padding:20px;max-width:720px;margin:0 auto}.metrics{grid-template-columns:repeat(4,1fr)}.footer-nav{display:none}body{padding-bottom:0}}
 .alert[data-task]{cursor:pointer;user-select:none;transition:opacity .2s}
-.alert[data-task]::before{content:'â—‹  ';font-weight:700;opacity:.7}
+.alert[data-task]::before{content:'○  ';font-weight:700;opacity:.7}
 .alert[data-task].done{opacity:.35;text-decoration:line-through}
-.alert[data-task].done::before{content:'âœ“  '}
+.alert[data-task].done::before{content:'✓  '}
 </style>
 </head>
 <body>
@@ -97,7 +97,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 <div class="header">
   <div>
     <div class="header-title">Projet Le Pradet</div>
-    <div class="header-sub">60 rue Jules Verne Â· Zone UDd Â· PMR T5</div>
+    <div class="header-sub">60 rue Jules Verne · Zone UDd · PMR T5</div>
   </div>
   <div style="display:flex;align-items:center;gap:8px">
     <div class="status-dot"></div>
@@ -119,8 +119,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 <div class="main">
 
 <div class="metrics">
-  <div class="metric"><div class="metric-label">Financement LCL</div><div class="metric-value mono">680k â‚¬</div><div class="metric-sub">relais + fixe + apport</div></div>
-  <div class="metric"><div class="metric-label">Travaux</div><div class="metric-value mono">450k â‚¬</div><div class="metric-sub">TTC Â· APS Badin 30/07</div></div>
+  <div class="metric"><div class="metric-label">Financement LCL</div><div class="metric-value mono">680k €</div><div class="metric-sub">relais + fixe + apport</div></div>
+  <div class="metric"><div class="metric-label">Travaux</div><div class="metric-value mono">450k €</div><div class="metric-sub">TTC · APS Badin 30/07</div></div>
   <div class="metric"><div class="metric-label">Mensualité</div><div class="metric-value mono">1 540</div><div class="metric-sub">€/mois hors assurance</div></div>
   <div class="metric"><div class="metric-label">Acte notaire</div><div class="metric-value mono" id="countdown">--j</div><div class="metric-sub">9 septembre 2026</div></div>
 </div>
@@ -188,12 +188,12 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   <div class="card">
     <div class="card-header"><div class="card-title">Plan de financement</div></div>
     <div class="card-body">
-      <div class="row"><div class="row-left"><div class="row-label">Prix acquisition</div></div><span class="mono" style="font-size:13px">526 000 â‚¬</span></div>
-      <div class="row"><div class="row-left"><div class="row-label">Mobilier inclus</div></div><span class="mono" style="font-size:13px;color:var(--text2)">4 000 â‚¬</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Prix acquisition</div></div><span class="mono" style="font-size:13px">526 000 €</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Mobilier inclus</div></div><span class="mono" style="font-size:13px;color:var(--text2)">4 000 €</span></div>
       <div class="row"><div class="row-left"><div class="row-label">Frais de notaire</div><div class="row-sub">Taux majoré Var 2025-2028</div></div><span class="mono" style="font-size:13px">41 300 €</span></div>
-      <div class="row"><div class="row-left"><div class="row-label">Budget travaux TTC</div><div class="row-sub">Estimatif APS Badin 30/07/2026 Â· Â±10% Â· 380 000 â‚¬ HT</div></div><span class="mono" style="font-size:13px">450 000 â‚¬</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Budget travaux TTC</div><div class="row-sub">Estimatif APS Badin 30/07/2026 · ±10% · 380 000 € HT</div></div><span class="mono" style="font-size:13px">450 000 €</span></div>
       <div class="row"><div class="row-left"><div class="row-label">Apport personnel</div><div class="row-sub">Confirmé offre de prêt LCL 29/07/2026</div></div><span class="mono" style="font-size:13px;color:var(--success)">30 058 €</span></div>
-      <div class="row" style="background:var(--bg4)"><div class="row-left"><div class="row-label" style="font-weight:600">Total financement LCL</div><div class="row-sub">385 000 (relais) + 265 000 (fixe) + 30 057,50 (apport)</div></div><span class="mono" style="font-size:15px;font-weight:600;color:var(--accent)">680 057 â‚¬</span></div>
+      <div class="row" style="background:var(--bg4)"><div class="row-left"><div class="row-label" style="font-weight:600">Total financement LCL</div><div class="row-sub">385 000 (relais) + 265 000 (fixe) + 30 057,50 (apport)</div></div><span class="mono" style="font-size:15px;font-weight:600;color:var(--accent)">680 057 €</span></div>
     </div>
   </div>
   <div class="card">
@@ -205,19 +205,19 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
       <div class="row" style="background:rgba(248,113,113,.05)"><div class="row-left"><div class="row-label">Remboursement relais (à la vente Tassin)</div><div class="row-sub">Capital 385 000 + intérêts 14 383 — échéance maximum mois 36</div></div><span class="mono" style="font-size:13px;color:var(--danger)">399 383 €</span></div>
       <div class="row"><div class="row-left"><div class="row-label">Assurance CACI totale</div><div class="row-sub">Obligatoire + facultative · Emmanuel + Isabelle · sur 2 prêts</div></div><span class="mono" style="font-size:13px;color:var(--text2)">92 115 €</span></div>
       <div class="row"><div class="row-left"><div class="row-label">Garanties Crédit Logement</div><div class="row-sub">4 507 € (relais) + 3 251 € (fixe) · caution INITIO</div></div><span class="mono" style="font-size:13px;color:var(--text2)">7 758 €</span></div>
-      <div class="row"><div class="row-left"><div class="row-label">Frais de dossier LCL</div></div><span class="mono" style="font-size:13px;color:var(--text2)">1 000 â‚¬</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Frais de dossier LCL</div></div><span class="mono" style="font-size:13px;color:var(--text2)">1 000 €</span></div>
     </div>
   </div>
   <div class="card">
-    <div class="card-header"><div class="card-title">Honoraires MOE â€” Calendrier Badin</div><span class="badge b-info">42 480 â‚¬ TTC</span></div>
+    <div class="card-header"><div class="card-title">Honoraires MOE — Calendrier Badin</div><span class="badge b-info">42 480 € TTC</span></div>
     <div class="card-body">
       <div class="row" style="background:rgba(52,211,153,.05)"><div class="row-left"><div class="row-label">ESQ / Relevé — 10% · base 3 540 € HT</div><div class="row-sub">✅ RÉGLÉ 07/05/2026 · F26-0010 · Virement → Parcel Architecture</div></div><span class="mono" style="font-size:12px;color:var(--success)">4 248 €</span></div>
       <div class="row" style="background:rgba(52,211,153,.05)"><div class="row-left"><div class="row-label">APS — 7,5% · base 2 655 € HT</div><div class="row-sub">✅ RÉGLÉ 07/05/2026 · F26-0011 · Virement → Parcel Architecture</div></div><span class="mono" style="font-size:12px;color:var(--success)">3 186 €</span></div>
       <div class="row" style="background:rgba(52,211,153,.05)"><div class="row-left"><div class="row-label">PC — Permis de Construire · 5% · base 1 770 € HT</div><div class="row-sub">✅ RÉGLÉ 07/05/2026 · F26-0012 · PC déposé 06/05 — N° PC 083 098 26 00013</div></div><span class="mono" style="font-size:12px;color:var(--success)">2 124 €</span></div>
       <div class="row" style="background:rgba(52,211,153,.05)"><div class="row-left"><div class="row-label">APD — 7,5% · base 2 655 € HT</div><div class="row-sub">✅ REÇU 01/08/2026 · Réf. 26_004 · 22 plans · Parcel Architecture · Étude Lemoine août 26 — retour observations fin août</div></div><span class="mono" style="font-size:12px;color:var(--success)">3 186 €</span></div>
       <div class="row"><div class="row-left"><div class="row-label">PRO — Projet définitif · après retour observations APD</div><div class="row-sub">📅 Courant septembre 2026 · après retour Lemoine fin août → Badin</div></div><span class="mono" style="font-size:12px;color:var(--info)">7 646 €</span></div>
-      <div class="row"><div class="row-left"><div class="row-label">DCE â€” Dossier Consultation Entreprises</div><div class="row-sub">5% Â· 60% remise + 40% validation</div></div><span class="mono" style="font-size:12px">2 124 â‚¬</span></div>
-      <div class="row"><div class="row-left"><div class="row-label">ACT â€” Assistance Choix Entreprises</div><div class="row-sub">7% Â· 60% remise + 40% validation</div></div><span class="mono" style="font-size:12px">2 974 â‚¬</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">DCE — Dossier Consultation Entreprises</div><div class="row-sub">5% · 60% remise + 40% validation</div></div><span class="mono" style="font-size:12px">2 124 €</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">ACT — Assistance Choix Entreprises</div><div class="row-sub">7% · 60% remise + 40% validation</div></div><span class="mono" style="font-size:12px">2 974 €</span></div>
       <div class="row"><div class="row-left"><div class="row-label">DET — Direction Exécution Travaux</div><div class="row-sub">35% · mensualités 1 858,50 € TTC × 8 mois</div></div><span class="mono" style="font-size:12px">14 868 €</span></div>
       <div class="row"><div class="row-left"><div class="row-label">AOR — Assistance Opérations Réception</div><div class="row-sub">5% · 100% à la livraison</div></div><span class="mono" style="font-size:12px">2 124 €</span></div>
       <div class="row" style="background:var(--bg4)"><div class="row-left"><div class="row-label" style="font-weight:600">Total honoraires</div><div class="row-sub">Contrat MOE-26-004 · 01/04/2026 · PRO révisé CR 30/06</div></div><span class="mono" style="font-size:15px;font-weight:600;color:var(--accent)">44 604 €</span></div>
@@ -227,10 +227,10 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
     <div class="card-header"><div class="card-title">Estimatif APS — Parcel Architecture</div><span class="badge b-ok">30/07/2026 · Réf. 26_004v2</span></div>
     <div class="card-body">
       <div class="row"><div class="row-left"><div class="row-label">Lot 03 — Gros œuvre / maçonnerie / charpente</div><div class="row-sub">Fondations extensions, sous-œuvres, cage ascenseur, trémie</div></div><span class="mono" style="font-size:12px;color:var(--text2)">106 000 € HT</span></div>
-      <div class="row"><div class="row-left"><div class="row-label">Lot 08 â€” Doublages / cloisons / plafonds</div><div class="row-sub">Isolation, gaines techniques, faux plafonds</div></div><span class="mono" style="font-size:12px;color:var(--text2)">32 000 â‚¬ HT</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Lot 08 — Doublages / cloisons / plafonds</div><div class="row-sub">Isolation, gaines techniques, faux plafonds</div></div><span class="mono" style="font-size:12px;color:var(--text2)">32 000 € HT</span></div>
       <div class="row"><div class="row-left"><div class="row-label">Lot 02 — Terrassements / VRD / Piscine 8×2,5 m</div><div class="row-sub">Réseaux, piscine maçonnée, étanchéité, filtration, margelles, aménagements ext.</div></div><span class="mono" style="font-size:12px;color:var(--text2)">52 000 € HT</span></div>
       <div class="row"><div class="row-left"><div class="row-label">Lot 06 — Menuiseries extérieures</div><div class="row-sub">Aluminium, vitrages, portes extérieures, volets roulants</div></div><span class="mono" style="font-size:12px;color:var(--text2)">30 000 € HT</span></div>
-      <div class="row"><div class="row-left"><div class="row-label">Lot 12 â€” Plomberie / chauffage / clim / ventilation</div><div class="row-sub">PAC, VMC, EF/ECS/EU, sanitaires, salles d'eau</div></div><span class="mono" style="font-size:12px;color:var(--text2)">27 000 â‚¬ HT</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Lot 12 — Plomberie / chauffage / clim / ventilation</div><div class="row-sub">PAC, VMC, EF/ECS/EU, sanitaires, salles d'eau</div></div><span class="mono" style="font-size:12px;color:var(--text2)">27 000 € HT</span></div>
       <div class="row"><div class="row-left"><div class="row-label">Autres lots (00·01·04·05·07·09·10·11·13)</div><div class="row-sub">Install. chantier · démolitions · étanchéité · façades · serrurerie · menus. int. · sols · peinture · électricité</div></div><span class="mono" style="font-size:12px;color:var(--text2)">128 000 € HT</span></div>
       <div class="row"><div class="row-left"><div class="row-label">Honoraires MOE (Badin) + BET / géomètre / SPS / DO</div><div class="row-sub">Contrat MOE-26-004 · 42 480 € TTC + ~20 k€ BET estimé</div></div><span class="mono" style="font-size:12px;color:var(--warning)">~63 000 € TTC</span></div>
       <div class="row" style="background:var(--bg4)"><div class="row-left"><div class="row-label" style="font-weight:600">Total estimatif APS</div><div class="row-sub">±10% précision APS · fourchette 337 500 – 412 500 € HT · sera affiné à l'APD</div></div><span class="mono" style="font-size:15px;font-weight:600;color:var(--accent)">380 000 € HT · 450 000 € TTC</span></div>
@@ -241,15 +241,15 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 <!-- PROJET -->
 <div id="pane-projet" class="pane">
   <div class="card">
-    <div class="card-header"><div class="card-title">Zonage PLU â€” Zone UDd</div><span class="badge b-info">Gravettes</span></div>
+    <div class="card-header"><div class="card-title">Zonage PLU — Zone UDd</div><span class="badge b-info">Gravettes</span></div>
     <div class="card-body">
-      <div class="row"><div class="row-left"><div class="row-label">COS standard</div></div><span class="mono" style="font-size:12px">0,30 â†’ 180 mÂ²</span></div>
-      <div class="row"><div class="row-left"><div class="row-label">COS avec ENR</div><div class="row-sub">Panneaux PV ou PAC</div></div><span class="mono" style="font-size:12px;color:var(--success)">0,36 â†’ 216 mÂ²</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">COS standard</div></div><span class="mono" style="font-size:12px">0,30 → 180 m²</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">COS avec ENR</div><div class="row-sub">Panneaux PV ou PAC</div></div><span class="mono" style="font-size:12px;color:var(--success)">0,36 → 216 m²</span></div>
       <div class="alert alert-ok" style="margin:6px 0 2px 0;border-radius:var(--radius-sm)">✅ <strong>Surfaces validées — Notice PC PCMI4 · déposé 06/05/2026</strong> · SDP existant : <strong>155 m²</strong> · SDP projet : <strong>200 m²</strong> (+33%) · ENR (PV+PAC) → COS +20% → plafond 216 m² → projet 200 m² ✅ conforme</div>
-      <div class="row"><div class="row-left"><div class="row-label">Emprise max</div><div class="row-sub">Existant 132 mÂ² (22%) â†’ projet 183 mÂ² (30%) â€” conforme PC</div></div><span class="mono" style="font-size:12px">30% = 180 mÂ²</span></div>
-      <div class="row"><div class="row-left"><div class="row-label">Espaces libres min</div></div><span class="mono" style="font-size:12px;color:var(--warning)">40% = 240 mÂ²</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Emprise max</div><div class="row-sub">Existant 132 m² (22%) → projet 183 m² (30%) — conforme PC</div></div><span class="mono" style="font-size:12px">30% = 180 m²</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Espaces libres min</div></div><span class="mono" style="font-size:12px;color:var(--warning)">40% = 240 m²</span></div>
       <div class="row"><div class="row-left"><div class="row-label">Hauteur max</div></div><span class="mono" style="font-size:12px">7 m à l'égout</span></div>
-      <div class="row"><div class="row-left"><div class="row-label">Recul voies</div><div class="row-sub">Jules Verne (N) + Mayol (O) â€” angle</div></div><span class="mono" style="font-size:12px;color:var(--warning)">4 m obligatoires</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Recul voies</div><div class="row-sub">Jules Verne (N) + Mayol (O) — angle</div></div><span class="mono" style="font-size:12px;color:var(--warning)">4 m obligatoires</span></div>
       <div class="row"><div class="row-left"><div class="row-label">Recul limites sépar.</div></div><span class="mono" style="font-size:12px;color:var(--warning)">4 m (UDd strict)</span></div>
       <div class="row"><div class="row-left"><div class="row-label">Piscine recul</div><div class="row-sub">Dérogation UD7.2 — conforme</div></div><span class="mono" style="font-size:12px;color:var(--success)">2 m seulement</span></div>
     </div>
@@ -261,14 +261,14 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
       <div class="row"><div class="row-left"><div class="row-label">R+1 (90 m²)</div><div class="row-sub">3 chambres · redistribution possible</div></div><span class="badge b-warn">À redistribuer</span></div>
       <div class="row"><div class="row-left"><div class="row-label">Ascenseur privatif</div><div class="row-sub">100×140 cm · porte 90 cm · étude structure</div></div><span class="badge b-danger">Critique PMR</span></div>
       <div class="row"><div class="row-left"><div class="row-label">Carport PMR</div><div class="row-sub">3,30 m · double recul · dérogation L.152-6</div></div><span class="badge b-warn">Dérogation</span></div>
-      <div class="row"><div class="row-left"><div class="row-label">Couloir de nage plein sud</div><div class="row-sub">Delfino Â· recul 2 m Â· conforme PLU</div></div><span class="badge b-ok">Conforme</span></div>
+      <div class="row"><div class="row-left"><div class="row-label">Couloir de nage plein sud</div><div class="row-sub">Delfino · recul 2 m · conforme PLU</div></div><span class="badge b-ok">Conforme</span></div>
       <div class="row"><div class="row-left"><div class="row-label">Terrasse plain-pied</div><div class="row-sub">0 seuil · continuité intérieur/extérieur</div></div><span class="badge b-ok">Conforme</span></div>
     </div>
   </div>
   <div class="section-label">Anomalies contrat Badin</div>
   <div class="alert alert-ok" data-task="badin-ref">✅ Référence devis corrigée — contrat signé sur base MOE-26-004v2</div>
   <div class="alert alert-ok" data-task="badin-sign">✅ Convention MOE signée par Emmanuel Lemoine — 01/04/2026 · Contrat MOE-26-004v2 · 42 480 € TTC</div>
-  <div class="alert alert-ok" data-task="badin-art">âœ… Mention manuscrite art. L.313-42 remplie</div>
+  <div class="alert alert-ok" data-task="badin-art">✅ Mention manuscrite art. L.313-42 remplie</div>
   <div class="alert alert-ok" data-task="badin-clause">✅ Clause 70 k€ supplémentaires — résolue</div>
 </div>
 
@@ -319,7 +319,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   <div class="alert alert-warn" data-task="risk-relais">Prêt relais 385 k€ / 36 mois / 3,73% — remboursement à la vente de l'appartement Tassin (Constellation)</div>
   <div class="alert alert-info" data-task="risk-puits">Puits domestique — usage remplissage piscine à vérifier (règlement sanitaire Var)</div>
   <div class="alert alert-info" data-task="risk-vendeur">Demander liste travaux personnels du vendeur (vices cachés)</div>
-  <div class="section-label">Diagnostics techniques â€” DDT</div>
+  <div class="section-label">Diagnostics techniques — DDT</div>
   <div class="alert alert-danger" data-task="diag-amiante">⚠️ Amiante détectée — Diagnostic DIMO du 15/05/2025 · Désamiantage obligatoire avant toute intervention sur zones concernées · Technicien : Marchal Christophe (ABCIDIA certifié)</div>
   <div class="alert alert-warn" data-task="diag-dpe">DPE E — interdiction location 2034 · Isolation Phase 2 à documenter pour revalorisation</div>
   <div class="alert alert-warn" data-task="diag-radon">Radon potentiel 3/3 — mesure de concentration obligatoire après travaux · Ventilation VMC hygro-B prévue Phase 3</div>
@@ -328,7 +328,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   <div class="section-label">Risques naturels — Géorisques</div>
   <div class="card">
     <div class="card-body">
-      <div class="risque"><div class="rdot" style="background:#f87171"></div><span style="flex:1">Radon â€” potentiel 3/3</span><span class="badge b-danger">Mesure obligatoire</span></div>
+      <div class="risque"><div class="rdot" style="background:#f87171"></div><span style="flex:1">Radon — potentiel 3/3</span><span class="badge b-danger">Mesure obligatoire</span></div>
       <div class="risque"><div class="rdot" style="background:#f87171"></div><span style="flex:1">Inondation — aléa faible</span><span class="badge b-warn">Existant</span></div>
       <div class="risque"><div class="rdot" style="background:#fbbf24"></div><span style="flex:1">Remontée de nappe</span><span class="badge b-warn">Fiabilité moyenne</span></div>
       <div class="risque"><div class="rdot" style="background:#fbbf24"></div><span style="flex:1">Retrait-gonflement argiles</span><span class="badge b-warn">Modéré</span></div>
@@ -356,7 +356,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
       <div class="pmr-spec"><span style="width:22px;text-align:center">ðŸšª</span><span>Portes principales</span><span class="pmr-val">100 cm</span></div>
       <div class="pmr-spec"><span style="width:22px;text-align:center">ðŸšª</span><span>Portes secondaires min</span><span class="pmr-val">90 cm</span></div>
       <div class="pmr-spec"><span style="width:22px;text-align:center">↺</span><span>Rotation recommandée</span><span class="pmr-val">160-170 cm</span></div>
-      <div class="pmr-spec"><span style="width:22px;text-align:center">â†—</span><span>Pente rampe max quotidien</span><span class="pmr-val">4%</span></div>
+      <div class="pmr-spec"><span style="width:22px;text-align:center">↗</span><span>Pente rampe max quotidien</span><span class="pmr-val">4%</span></div>
       <div class="pmr-spec"><span style="width:22px;text-align:center">—</span><span>Seuils maximum</span><span class="pmr-val">0 cm idéal</span></div>
       <div class="pmr-spec"><span style="width:22px;text-align:center">ðŸ³</span><span>Plan de travail cuisine</span><span class="pmr-val">80-85 cm</span></div>
       <div class="pmr-spec"><span style="width:22px;text-align:center">🚿</span><span>Transfert latéral douche</span><span class="pmr-val">80 cm libre</span></div>
@@ -382,7 +382,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 
       <div class="row" style="background:rgba(248,113,113,.05)">
         <div class="row-left">
-          <div class="row-label">âŒ MaPrimeAdapt'</div>
+          <div class="row-label">❌ MaPrimeAdapt'</div>
           <div class="row-sub">NON ÉLIGIBLE confirmé France Rénov 22/04 · RFR 75 767 € > seuil « modestes » (~37 000 €)</div>
         </div>
         <span class="badge b-danger">Non éligible</span>
@@ -393,15 +393,15 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
           <div class="row-label">✅ MaPrimeRénov' ampleur</div>
           <div class="row-sub">Tranche Supérieurs (10%) · Rénovation globale · DPE avant travaux obligatoire · AMO recommandé</div>
         </div>
-        <span class="mono" style="font-size:13px;color:var(--success)">~4 000 â‚¬</span>
+        <span class="mono" style="font-size:13px;color:var(--success)">~4 000 €</span>
       </div>
 
       <div class="row">
         <div class="row-left">
-          <div class="row-label">âœ… PCH Logement â€” MDPH Var</div>
+          <div class="row-label">✅ PCH Logement — MDPH Var</div>
           <div class="row-sub">Paraplégie T5 · 80% invalidité · Dossier à déposer AVANT travaux · 04 94 05 10 40</div>
         </div>
-        <span class="mono" style="font-size:13px;color:var(--success)">~8 000 â‚¬</span>
+        <span class="mono" style="font-size:13px;color:var(--success)">~8 000 €</span>
       </div>
 
       <div class="row">
@@ -409,7 +409,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
           <div class="row-label">✅ TVA 10% — Rénovation existant</div>
           <div class="row-sub">Sur partie existante (≠ extension neuve à 20%) · À préciser à Badin dans le PC</div>
         </div>
-        <span class="mono" style="font-size:13px;color:var(--success)">16â€“20 kâ‚¬</span>
+        <span class="mono" style="font-size:13px;color:var(--success)">16–20 k€</span>
       </div>
 
       <div class="row">
@@ -425,15 +425,15 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
           <div class="row-label">✅ Action Logement — Prêt travaux</div>
           <div class="row-sub">Via Boréale Formation (27 salariés — éligible) · Taux 1,5% · Contacter RH Boréale</div>
         </div>
-        <span class="mono" style="font-size:13px;color:var(--success)">10 000 â‚¬</span>
+        <span class="mono" style="font-size:13px;color:var(--success)">10 000 €</span>
       </div>
 
       <div class="row">
         <div class="row-left">
           <div class="row-label">✅ AGEFIPH — Aménagement bureau domicile</div>
-          <div class="row-sub">Bureau domicile professionnel Â· Dossier avec Badin Â· 04 91 56 56 20</div>
+          <div class="row-sub">Bureau domicile professionnel · Dossier avec Badin · 04 91 56 56 20</div>
         </div>
-        <span class="mono" style="font-size:13px;color:var(--success)">10â€“15 kâ‚¬</span>
+        <span class="mono" style="font-size:13px;color:var(--success)">10–15 k€</span>
       </div>
 
       <div class="row">
@@ -454,7 +454,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 
       <div class="row">
         <div class="row-left">
-          <div class="row-label">1. PCH Logement â€” MDPH Var</div>
+          <div class="row-label">1. PCH Logement — MDPH Var</div>
           <div class="row-sub">📞 04 94 05 10 40 · Déposer le dossier AVANT début travaux · Délai instruction 4-6 mois · Dossier : projet Badin + devis + prescription médicale</div>
         </div>
         <span class="badge b-danger">URGENT</span>
@@ -478,7 +478,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 
       <div class="row">
         <div class="row-left">
-          <div class="row-label">4. AGEFIPH â€” Bureau domicile</div>
+          <div class="row-label">4. AGEFIPH — Bureau domicile</div>
           <div class="row-sub">📞 04 91 56 56 20 · Aide aménagement bureau professionnel à domicile · Dossier à préparer avec Badin + ergothérapeute · BNC consultant RH éligible</div>
         </div>
         <span class="badge b-warn">Avant PC</span>
@@ -537,7 +537,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   <div class="alert alert-ok" style="margin-bottom:8px">✅ <strong>ESQ · APS · PC · Instruction PC · APD :</strong> toutes phases accomplies · APD reçu 01/08/2026 · Réf. 26_004 · 22 plans · Emmanuel + Isabelle étudient le dossier tout août</div>
   <div class="alert alert-ok" style="margin-bottom:12px">✅ <strong>Estimatif APS Badin — 30/07/2026 (réf. 26_004v2) :</strong> <strong>380 000 € HT / 450 000 € TTC</strong> · ±10% · 14 lots · Piscine 8×2,5 m · Planning : travaux <strong>15 nov. 2026</strong> · livraison sept. 2027</div>
   <div class="card">
-    <div class="card-header"><div class="card-title">ðŸ“ Phases MOE â€” Yannick Badin, architecte</div><span class="badge b-ok">APD âœ… Â· Travaux nov 26</span></div>
+    <div class="card-header"><div class="card-title">📐 Phases MOE — Yannick Badin, architecte</div><span class="badge b-ok">APD ✅ · Travaux nov 26</span></div>
     <div class="card-body" id="gantt-mobile"></div>
   </div>
   <div class="alert alert-warn" style="margin-top:8px">📋 <strong>Action août 2026 :</strong> étude APD par Emmanuel + Isabelle · retour des observations et demandes de modification à Yannick Badin, architecte <strong>avant fin août</strong> → PRO septembre 2026</div>
@@ -552,13 +552,13 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   <button class="fn-btn" data-pane="projet" onclick="showPane('projet')"><span class="fn-icon">ðŸ </span>Projet</button>
   <button class="fn-btn" data-pane="travaux" onclick="showPane('travaux')"><span class="fn-icon">ðŸ”¨</span>Travaux</button>
   <button class="fn-btn" data-pane="intervenants" onclick="showPane('intervenants')"><span class="fn-icon">👥</span>Équipe</button>
-  <button class="fn-btn" data-pane="risques" onclick="showPane('risques')"><span class="fn-icon">âš ï¸</span>Risques</button>
-  <button class="fn-btn" data-pane="pmr" onclick="showPane('pmr')"><span class="fn-icon">â™¿</span>PMR</button>
+  <button class="fn-btn" data-pane="risques" onclick="showPane('risques')"><span class="fn-icon">⚠️</span>Risques</button>
+  <button class="fn-btn" data-pane="pmr" onclick="showPane('pmr')"><span class="fn-icon">♿</span>PMR</button>
   <button class="fn-btn" data-pane="planning" onclick="showPane('planning')"><span class="fn-icon">ðŸ“</span>Planning</button>
 </nav>
 
 <script>
-// Navigation â€” synchronise barre du haut ET footer
+// Navigation — synchronise barre du haut ET footer
 function showPane(id){
   document.querySelectorAll('.pane').forEach(p=>p.classList.remove('active'));
   document.getElementById('pane-'+id).classList.add('active');
@@ -570,15 +570,15 @@ function showPane(id){
 // ---- GANTT MOBILE ----
 (function(){
   const phases = [
-    { name:'ESQ',            sub:'25/04 â†’ 28/04',         start:'2026-04-25', end:'2026-04-28',  color:'#f87171', jalon:'Valid. ESQ 28/04' },
-    { name:'APS',            sub:'30/04 â†’ 02/05',         start:'2026-04-30', end:'2026-05-02',  color:'#a78bfa', jalon:'Valid. APS 02/05' },
+    { name:'ESQ',            sub:'25/04 → 28/04',         start:'2026-04-25', end:'2026-04-28',  color:'#f87171', jalon:'Valid. ESQ 28/04' },
+    { name:'APS',            sub:'30/04 → 02/05',         start:'2026-04-30', end:'2026-05-02',  color:'#a78bfa', jalon:'Valid. APS 02/05' },
     { name:'PC — Dépôt',     sub:'dépôt 05/05',           start:'2026-05-03', end:'2026-05-05',  color:'#fbbf24', jalon:'✅ Dépôt 05/05' },
     { name:'APD',            sub:'juil → août 26',        start:'2026-07-30', end:'2026-08-31',  color:'#818cf8', jalon:'APD en cours' },
     { name:'Instruction PC', sub:'✅ Accordé 18/06/2026', start:'2026-05-05', end:'2026-06-18',  color:'#34d399', jalon:'✅ PC accordé 18/06' },
     { name:'PRO',            sub:'sept 26',               start:'2026-09-01', end:'2026-09-30',  color:'#34d399', jalon:'Valid. PRO sept 26' },
     { name:'ACT / DCE',      sub:'oct 26',                start:'2026-10-01', end:'2026-10-31',  color:'#60a5fa', jalon:'Attribution oct 26' },
     { name:'Prépa chantier', sub:'nov 26',                start:'2026-11-01', end:'2026-11-14',  color:'#f97316', jalon:'OS nov 26' },
-    { name:'Travaux â€” DET',  sub:'nov 26 â†’ juil 27',     start:'2026-11-15', end:'2027-07-31',  color:'#f87171', jalon:'Fin travaux juil 27' },
+    { name:'Travaux — DET',  sub:'nov 26 → juil 27',     start:'2026-11-15', end:'2027-07-31',  color:'#f87171', jalon:'Fin travaux juil 27' },
     { name:'Réception AOR',  sub:'août → sept 2027',     start:'2027-08-01', end:'2027-09-30',  color:'#34d399', jalon:'🏠 Livraison sept 27' },
   ];
   const S = new Date('2026-04-01'), E = new Date('2027-12-15');
