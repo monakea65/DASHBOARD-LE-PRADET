@@ -114,6 +114,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   <button class="nav-btn" data-pane="risques" onclick="showPane('risques')">Risques</button>
   <button class="nav-btn" data-pane="pmr" onclick="showPane('pmr')">PMR</button>
   <button class="nav-btn" data-pane="planning" onclick="showPane('planning')">Planning</button>
+  <button class="nav-btn" data-pane="demarches" onclick="showPane('demarches')">Démarches ✓</button>
 </div>
 
 <div class="main">
@@ -552,6 +553,67 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 
 </div>
 
+<!-- DÉMARCHES POST-ACTE -->
+<div id="pane-demarches" class="pane">
+
+  <div id="dm-progress" style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
+    <div>
+      <div style="font-size:11px;color:var(--text2);font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Avancement</div>
+      <div style="font-size:22px;font-weight:600;font-family:'DM Mono',monospace" id="dm-count">0 / 22</div>
+      <div style="font-size:11px;color:var(--text3);margin-top:3px">tâches accomplies</div>
+    </div>
+    <div style="width:70px;height:70px;position:relative">
+      <svg viewBox="0 0 36 36" style="transform:rotate(-90deg);width:100%;height:100%">
+        <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--bg4)" stroke-width="3"/>
+        <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--success)" stroke-width="3" stroke-dasharray="0 100" id="dm-ring" stroke-linecap="round"/>
+      </svg>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--success)" id="dm-pct">0%</div>
+    </div>
+  </div>
+
+  <div class="section-label">🔴 Urgentes — dans les 48–72h après l'acte (09/09)</div>
+  <div class="card"><div class="card-body">
+    <div class="alert alert-danger" data-task="dm-01" style="margin:6px 12px">Relever tous les compteurs (eau, électricité) au jour de prise de possession — photographier les index avec horodatage</div>
+    <div class="alert alert-danger" data-task="dm-02" style="margin:6px 12px">Ouvrir un contrat électricité — Enedis mise en service + choisir fournisseur (EDF, Engie…)</div>
+    <div class="alert alert-danger" data-task="dm-03" style="margin:6px 12px">Ouvrir un contrat eau — régie locale Le Pradet (Métropole TPM / Veolia selon secteur)</div>
+    <div class="alert alert-danger" data-task="dm-04" style="margin:6px 12px">Souscrire l'assurance habitation — obligatoire dès propriétaire + exigée par LCL</div>
+    <div class="alert alert-danger" data-task="dm-05" style="margin:6px 12px">Récupérer tous les documents dans la maison — codes alarme, notices chaudière/clim, livrets entretien, clés boîte aux lettres, codes portail/volets</div>
+    <div class="alert alert-danger" data-task="dm-06" style="margin:6px 12px">Mettre à jour espace impots.gouv.fr — section "Biens immobiliers" (suite email Mme Strebe, vendeuse)</div>
+  </div></div>
+
+  <div class="section-label">🟠 Importantes — dans la semaine</div>
+  <div class="card"><div class="card-body">
+    <div class="alert alert-warn" data-task="dm-07" style="margin:6px 12px">Souscrire l'assurance dommages-ouvrage (DO) — obligatoire avant chantier (art. L241-1) · SMABTP, Allianz, Assurimmo, Socabat</div>
+    <div class="alert alert-warn" data-task="dm-08" style="margin:6px 12px">Envoyer attestation assurance habitation à LCL — Alexandrine Cumer, conseillère bancaire LCL</div>
+    <div class="alert alert-warn" data-task="dm-09" style="margin:6px 12px">Résilier les contrats des vendeurs (eau, électricité, assurance habitation)</div>
+    <div class="alert alert-warn" data-task="dm-10" style="margin:6px 12px">Signaler le changement de propriétaire à la mairie du Pradet — taxe foncière et communications PC</div>
+    <div class="alert alert-warn" data-task="dm-11" style="margin:6px 12px">Vérifier l'état de l'alarme — changer les codes si alarme présente</div>
+  </div></div>
+
+  <div class="section-label">🟡 Avant ouverture du chantier (nov. 2026)</div>
+  <div class="card"><div class="card-body">
+    <div class="alert alert-info" data-task="dm-12" style="margin:6px 12px">Déposer la DOC (Déclaration d'Ouverture de Chantier) — CERFA 13407 en 3 exemplaires en mairie, avant le premier coup de pioche</div>
+    <div class="alert alert-info" data-task="dm-13" style="margin:6px 12px">Souscrire une assurance chantier TRC (Tous Risques Chantier) — en complément de la DO</div>
+    <div class="alert alert-info" data-task="dm-14" style="margin:6px 12px">Coordonner les branchements provisoires chantier (eau + électricité) avec Yannick Badin, architecte</div>
+    <div class="alert alert-info" data-task="dm-15" style="margin:6px 12px">Conserver le bon de prise en charge de la conduite fibrociment amiante (12/09) — traçabilité obligatoire</div>
+    <div class="alert alert-info" data-task="dm-16" style="margin:6px 12px">Prévoir serrure chantier sur une seule porte d'accès — à organiser avec Yannick Badin, architecte avant OS</div>
+    <div class="alert alert-info" data-task="dm-17" style="margin:6px 12px">Vérifier le raccordement au tout-à-l'égout (ou fosse) avec Yannick Badin, architecte — avant travaux VRD</div>
+    <div class="alert alert-info" data-task="dm-18" style="margin:6px 12px">Lancer les devis BET (bureau d'études structure) et G2PRO (étude de sol) — nécessaires pour le PRO</div>
+    <div class="alert alert-info" data-task="dm-19" style="margin:6px 12px">Désigner un SPS (coordonnateur Sécurité et Protection de la Santé) — obligatoire avec plusieurs entreprises</div>
+  </div></div>
+
+  <div class="section-label">🟢 Non urgentes — dans le mois</div>
+  <div class="card"><div class="card-body">
+    <div class="alert alert-ok" data-task="dm-20" style="margin:6px 12px">Vérifier la régularisation de la taxe foncière — prorata calculé par Maître Roland Agi, notaire acquéreur à l'acte</div>
+    <div class="alert alert-ok" data-task="dm-21" style="margin:6px 12px">Mise à jour adresse si résidence principale — CAF, mutuelles, banques, employeur, carte grise, médecin traitant, Poste (réexpédition)</div>
+    <div class="alert alert-ok" data-task="dm-22" style="margin:6px 12px">Ouvrir un compte dédié travaux — pour suivre les flux chantier séparément du compte courant</div>
+  </div></div>
+
+  <div style="font-size:11px;color:var(--text3);text-align:center;padding:12px 0 4px">Tap sur une tâche pour la cocher · État mémorisé dans ce navigateur</div>
+</div>
+
+</div>
+
 <nav class="footer-nav">
   <button class="fn-btn active" data-pane="agenda" onclick="showPane('agenda')"><span class="fn-icon">📅</span>Agenda</button>
   <button class="fn-btn" data-pane="financier" onclick="showPane('financier')"><span class="fn-icon">💶</span>Finance</button>
@@ -561,6 +623,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
   <button class="fn-btn" data-pane="risques" onclick="showPane('risques')"><span class="fn-icon">⚠️</span>Risques</button>
   <button class="fn-btn" data-pane="pmr" onclick="showPane('pmr')"><span class="fn-icon">♿</span>PMR</button>
   <button class="fn-btn" data-pane="planning" onclick="showPane('planning')"><span class="fn-icon">📐</span>Planning</button>
+  <button class="fn-btn" data-pane="demarches" onclick="showPane('demarches')"><span class="fn-icon">✅</span>Démarches</button>
 </nav>
 
 <script>
@@ -665,6 +728,19 @@ function updateJdays(){
 }
 
 // Checklists interactives — état mémorisé dans le navigateur
+function updateDmProgress(){
+  var items=document.querySelectorAll('#pane-demarches [data-task]');
+  var done=0;
+  items.forEach(function(el){ if(el.classList.contains('done')) done++; });
+  var total=items.length;
+  var pct=total>0?Math.round(done/total*100):0;
+  var cnt=document.getElementById('dm-count');
+  var ring=document.getElementById('dm-ring');
+  var pctEl=document.getElementById('dm-pct');
+  if(cnt) cnt.textContent=done+' / '+total;
+  if(ring) ring.setAttribute('stroke-dasharray',pct+' '+(100-pct));
+  if(pctEl) pctEl.textContent=pct+'%';
+}
 function initTasks(){
   document.querySelectorAll('[data-task]').forEach(function(el){
     var id=el.dataset.task;
@@ -672,8 +748,10 @@ function initTasks(){
     el.addEventListener('click',function(){
       el.classList.toggle('done');
       localStorage.setItem('task_'+id, el.classList.contains('done')?'done':'');
+      updateDmProgress();
     });
   });
+  updateDmProgress();
 }
 
 updateCountdown();
