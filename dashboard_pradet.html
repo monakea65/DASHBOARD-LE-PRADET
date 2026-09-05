@@ -454,88 +454,53 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
     </div>
   </div>
 
-  <!-- Actions à faire -->
-  <div class="card" style="margin-bottom:12px">
-    <div class="card-header"><div class="card-title">⚡ Actions à faire — PMR &amp; Aides</div><span class="badge b-danger">Avant travaux</span></div>
-    <div class="card-body">
-
-      <div class="row">
-        <div class="row-left">
-          <div class="row-label">1. PCH Logement — MDPH Var</div>
-          <div class="row-sub">📞 04 94 05 10 40 · Déposer le dossier AVANT début travaux · Délai instruction 4-6 mois · Dossier : projet Badin + devis + prescription médicale</div>
-        </div>
-        <span class="badge b-danger">URGENT</span>
-      </div>
-
-      <div class="row">
-        <div class="row-left">
-          <div class="row-label">2. DPE avant travaux</div>
-          <div class="row-sub">Commander avant phase ESQ (obligatoire pour MaPrimeRénov' ampleur) · Diagnostiqueur certifié · ~200-400 € · Maison 1969, DPE E actuel</div>
-        </div>
-        <span class="badge b-danger">Avant ESQ</span>
-      </div>
-
-      <div class="row">
-        <div class="row-left">
-          <div class="row-label">3. Ergothérapeute — PACT-HD Var</div>
-          <div class="row-sub">Audit accessibilité PMR · Montage dossiers MDPH + AGEFIPH · Travaille avec Badin · Recommandé avant phase APS</div>
-        </div>
-        <span class="badge b-warn">Avant APS</span>
-      </div>
-
-      <div class="row">
-        <div class="row-left">
-          <div class="row-label">4. AGEFIPH — Bureau domicile</div>
-          <div class="row-sub">📞 04 91 56 56 20 · Aide aménagement bureau professionnel à domicile · Dossier à préparer avec Badin + ergothérapeute · BNC consultant RH éligible</div>
-        </div>
-        <span class="badge b-warn">Avant PC</span>
-      </div>
-
-      <div class="row">
-        <div class="row-left">
-          <div class="row-label">5. Action Logement — Boréale Formation</div>
-          <div class="row-sub">Contacter service RH Boréale Formation · Demander prêt travaux Action Logement · 10 000 € à 1,5% · CDI mi-temps éligible</div>
-        </div>
-        <span class="badge b-warn">Avant PC</span>
-      </div>
-
-      <div class="row">
-        <div class="row-left">
-          <div class="row-label">6. MaPrimeRénov' ampleur — France Rénov</div>
-          <div class="row-sub">Après DPE · Mandater AMO (assistant à maîtrise d'ouvrage) · ~4 000 € tranche Supérieurs · france-renov.gouv.fr · 0 808 800 700</div>
-        </div>
-        <span class="badge b-info">Après DPE</span>
-      </div>
-
-      <div class="row">
-        <div class="row-left">
-          <div class="row-label">7. TVA réduite — Instruction à Badin</div>
-          <div class="row-sub">Confirmer à Badin : TVA 10% partie existante · TVA 5,5% équipements handicap · Préciser dans dossier PC et CCTP · Économie ~16-20 k€</div>
-        </div>
-        <span class="badge b-info">Avant PC</span>
-      </div>
-
-      <div class="row">
-        <div class="row-left">
-          <div class="row-label">8. Dérogation L.152-6 CU — Carport PMR</div>
-          <div class="row-sub">Dérogation règle de recul (4 m) pour carport PMR · Dossier à préparer avec Badin avant dépôt PC · Joint au dossier PC</div>
-        </div>
-        <span class="badge b-info">Avant PC</span>
-      </div>
-
-      <div class="row">
-        <div class="row-left">
-          <div class="row-label">9. Taxe foncière — Déclaration H1</div>
-          <div class="row-sub">À déclarer dans 90j après achèvement auprès du centre des impôts · Extension ~48 m² uniquement · Exonération 2 ans · Risque revalorisation cadastrale à anticiper</div>
-        </div>
-        <span class="badge b-muted">Après travaux</span>
-      </div>
-
+  <!-- Checklist PMR -->
+  <div id="pmr-progress" style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
+    <div>
+      <div style="font-size:11px;color:var(--text2);font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Avancement démarches PMR</div>
+      <div style="font-size:22px;font-weight:600;font-family:'DM Mono',monospace" id="pmr-count">0 / 14</div>
+      <div style="font-size:11px;color:var(--text3);margin-top:3px">démarches accomplies</div>
+    </div>
+    <div style="width:70px;height:70px;position:relative">
+      <svg viewBox="0 0 36 36" style="transform:rotate(-90deg);width:100%;height:100%">
+        <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--bg4)" stroke-width="3"/>
+        <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--accent2)" stroke-width="3" stroke-dasharray="0 100" id="pmr-ring" stroke-linecap="round"/>
+      </svg>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--accent2)" id="pmr-pct">0%</div>
     </div>
   </div>
 
-  <div class="alert alert-warn">⚠️ <strong>Carport PMR :</strong> Dérogation L.152-6 CU à monter avec Badin avant dépôt PC — règle de recul 4 m UDd concernée</div>
-  <div class="alert alert-info">💡 <strong>PACT-HD Var :</strong> Ergothérapeute recommandé pour audit PMR + montage dossiers MDPH · AGEFIPH · France Rénov</div>
+  <div class="section-label">🔴 Urgentes — lancer maintenant (délais d'instruction longs)</div>
+  <div class="card"><div class="card-body">
+    <div class="alert alert-danger" data-task="pmr-01" style="margin:6px 12px">PCH Logement — appeler MDPH Var (📞 04 94 05 10 40) pour ouvrir le dossier · délai instruction 4-6 mois · dossier à déposer AVANT travaux (nov. 26)</div>
+    <div class="alert alert-danger" data-task="pmr-02" style="margin:6px 12px">Commander le DPE (Diagnostic de Performance Énergétique) — obligatoire pour MaPrimeRénov' ampleur · diagnostiqueur certifié · ~200-400 € · maison 1969, DPE E actuel</div>
+    <div class="alert alert-danger" data-task="pmr-03" style="margin:6px 12px">Contacter un ergothérapeute (PACT-HD Var) — audit accessibilité PMR + coordination montage dossiers MDPH et AGEFIPH · à impliquer dès maintenant avec Yannick Badin, architecte</div>
+  </div></div>
+
+  <div class="section-label">🟠 Importantes — avant le PRO (sept-oct 2026)</div>
+  <div class="card"><div class="card-body">
+    <div class="alert alert-warn" data-task="pmr-04" style="margin:6px 12px">Confirmer les instructions TVA à Yannick Badin, architecte — TVA 10% sur partie existante · TVA 5,5% sur équipements handicap (ascenseur, barres, douche PMR) · à intégrer dans le CCTP · économie ~16-20 k€</div>
+    <div class="alert alert-warn" data-task="pmr-05" style="margin:6px 12px">Contacter AGEFIPH pour aménagement bureau professionnel à domicile (📞 04 91 56 56 20) — BNC consultant RH éligible · dossier à préparer avec ergothérapeute + Yannick Badin, architecte · ~10-15 k€</div>
+    <div class="alert alert-warn" data-task="pmr-06" style="margin:6px 12px">Contacter le service RH de Boréale Formation pour le prêt travaux Action Logement — 10 000 € à 1,5% · CDI mi-temps éligible · 27 salariés → éligibilité confirmée</div>
+    <div class="alert alert-warn" data-task="pmr-07" style="margin:6px 12px">Mandater un AMO (assistant à maîtrise d'ouvrage) pour MaPrimeRénov' ampleur — après DPE · ~4 000 € tranche Supérieurs · france-renov.gouv.fr / 📞 0 808 800 700</div>
+    <div class="alert alert-warn" data-task="pmr-08" style="margin:6px 12px">Préparer le dossier de dérogation L.152-6 CU (carport PMR) avec Yannick Badin, architecte — dérogation règle de recul 4 m en zone UDd · à joindre au dossier PC</div>
+  </div></div>
+
+  <div class="section-label">🟡 Avant le DCE / dépôt dossiers (oct-nov 2026)</div>
+  <div class="card"><div class="card-body">
+    <div class="alert alert-info" data-task="pmr-09" style="margin:6px 12px">Faire établir une prescription médicale pour la PCH — par médecin traitant ou médecin MPR · nécessaire au dossier MDPH Var</div>
+    <div class="alert alert-info" data-task="pmr-10" style="margin:6px 12px">Obtenir des devis séparés pour les équipements PMR — ascenseur privatif, barres d'appui, douche accessible, plan de travail ajustable · nécessaires pour les dossiers MDPH et AGEFIPH</div>
+    <div class="alert alert-info" data-task="pmr-11" style="margin:6px 12px">Constituer le dossier PCH Logement complet — projet Badin (plans APD/PRO) + devis équipements PMR + prescription médicale + justificatifs handicap</div>
+    <div class="alert alert-info" data-task="pmr-12" style="margin:6px 12px">Déposer le dossier PCH Logement à la MDPH Var (📞 04 94 05 10 40) — impérativement AVANT ouverture du chantier · délai 4-6 mois</div>
+    <div class="alert alert-info" data-task="pmr-13" style="margin:6px 12px">Déposer le dossier AGEFIPH bureau domicile — avec ergothérapeute et Yannick Badin, architecte · justifier usage professionnel BNC consultant RH</div>
+  </div></div>
+
+  <div class="section-label">🟢 Après achèvement des travaux</div>
+  <div class="card"><div class="card-body">
+    <div class="alert alert-ok" data-task="pmr-14" style="margin:6px 12px">Déclaration H1 auprès du centre des impôts dans 90j après achèvement — extension ~48 m² uniquement · exonération taxe foncière 2 ans · anticiper risque de revalorisation cadastrale</div>
+  </div></div>
+
+  <div style="font-size:11px;color:var(--text3);text-align:center;padding:12px 0 4px">Tap sur une démarche pour la cocher · État mémorisé dans ce navigateur</div>
 </div>
 
 <!-- PLANNING GANTT -->
@@ -728,19 +693,21 @@ function updateJdays(){
 }
 
 // Checklists interactives — état mémorisé dans le navigateur
-function updateDmProgress(){
-  var items=document.querySelectorAll('#pane-demarches [data-task]');
+function updateProgress(paneId, countId, ringId, pctId){
+  var items=document.querySelectorAll('#'+paneId+' [data-task]');
   var done=0;
   items.forEach(function(el){ if(el.classList.contains('done')) done++; });
   var total=items.length;
   var pct=total>0?Math.round(done/total*100):0;
-  var cnt=document.getElementById('dm-count');
-  var ring=document.getElementById('dm-ring');
-  var pctEl=document.getElementById('dm-pct');
+  var cnt=document.getElementById(countId);
+  var ring=document.getElementById(ringId);
+  var pctEl=document.getElementById(pctId);
   if(cnt) cnt.textContent=done+' / '+total;
   if(ring) ring.setAttribute('stroke-dasharray',pct+' '+(100-pct));
   if(pctEl) pctEl.textContent=pct+'%';
 }
+function updateDmProgress(){ updateProgress('pane-demarches','dm-count','dm-ring','dm-pct'); }
+function updatePmrProgress(){ updateProgress('pane-pmr','pmr-count','pmr-ring','pmr-pct'); }
 function initTasks(){
   document.querySelectorAll('[data-task]').forEach(function(el){
     var id=el.dataset.task;
@@ -749,9 +716,11 @@ function initTasks(){
       el.classList.toggle('done');
       localStorage.setItem('task_'+id, el.classList.contains('done')?'done':'');
       updateDmProgress();
+      updatePmrProgress();
     });
   });
   updateDmProgress();
+  updatePmrProgress();
 }
 
 updateCountdown();
