@@ -94,6 +94,8 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
 </head>
 <body>
 
+<a href="https://claude.ai/code/artifact/48392098-8372-4207-8f27-17ae975ccc10" style="display:block;background:var(--accent);color:#fff;text-align:center;font-size:12px;font-weight:600;padding:8px 12px;text-decoration:none">↗ Nouvelle version avec checklists synchronisées entre appareils — ouvrir</a>
+
 <div class="header">
   <div>
     <div class="header-title">Projet Le Pradet</div>
@@ -577,7 +579,7 @@ body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;fon
     <div class="alert alert-ok" data-task="dm-22" style="margin:6px 12px">Ouvrir un compte dédié travaux — pour suivre les flux chantier séparément du compte courant</div>
   </div></div>
 
-  <div style="font-size:11px;color:var(--text3);text-align:center;padding:12px 0 4px">Tap sur une tâche pour la cocher · État synchronisé entre tous tes appareils</div>
+  <div style="font-size:11px;color:var(--text3);text-align:center;padding:12px 0 4px">Tap sur une tâche pour la cocher · État mémorisé dans ce navigateur</div>
 </div>
 
 </div>
@@ -695,47 +697,9 @@ function updateJdays(){
   });
 }
 
-// Checklists interactives — état partagé entre appareils via GitHub Contents API
-// (fichier checklist-state.json dans ce même dépôt). Jeton fin restreint UNIQUEMENT
-// à ce dépôt, permission Contents:Read-and-write, aucun autre accès — voir
-// regles-projet.md section 14 pour le contexte et le compromis de sécurité accepté.
-var GH_OWNER='monakea65', GH_REPO='DASHBOARD-LE-PRADET', GH_PATH='checklist-state.json';
-var GH_TOKEN='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';
-var ghSha=null, ghState=null, ghWriteQueue=Promise.resolve();
-
-function b64ToUtf8(b64){ return decodeURIComponent(escape(atob(b64))); }
-function utf8ToB64(str){ return btoa(unescape(encodeURIComponent(str))); }
-
-function ghFetchState(){
-  return fetch('https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/'+GH_PATH, {
-    headers:{ 'Authorization':'Bearer '+GH_TOKEN, 'Accept':'application/vnd.github+json' }
-  }).then(function(res){
-    if(!res.ok) throw new Error('GET '+res.status);
-    return res.json();
-  }).then(function(data){
-    ghSha=data.sha;
-    ghState=JSON.parse(b64ToUtf8(data.content));
-  }).catch(function(e){
-    console.warn('Sync GitHub indisponible — mode local seul.', e);
-    ghState=null;
-  });
-}
-
-function ghWriteState(){
-  if(ghState===null) return;
-  ghWriteQueue=ghWriteQueue.then(function(){
-    return fetch('https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/'+GH_PATH, {
-      method:'PUT',
-      headers:{ 'Authorization':'Bearer '+GH_TOKEN, 'Accept':'application/vnd.github+json', 'Content-Type':'application/json' },
-      body:JSON.stringify({ message:'Mise a jour checklist', content:utf8ToB64(JSON.stringify(ghState,null,2)), sha:ghSha })
-    }).then(function(res){
-      if(!res.ok) throw new Error('PUT '+res.status);
-      return res.json();
-    }).then(function(data){ ghSha=data.content.sha; })
-      .catch(function(e){ console.warn('Echec ecriture GitHub, resync au prochain clic.', e); return ghFetchState(); });
-  });
-}
-
+// Checklists interactives — état mémorisé dans ce navigateur uniquement.
+// Cette copie GitHub Pages est remplacée par l'Artifact Claude (voir bandeau
+// en haut de page) qui synchronise l'état entre tous les appareils.
 function updateProgress(paneId, countId, ringId, pctId){
   var items=document.querySelectorAll('#'+paneId+' [data-task]');
   var done=0;
@@ -752,23 +716,18 @@ function updateProgress(paneId, countId, ringId, pctId){
 function updateDmProgress(){ updateProgress('pane-demarches','dm-count','dm-ring','dm-pct'); }
 function updatePmrProgress(){ updateProgress('pane-pmr','pmr-count','pmr-ring','pmr-pct'); }
 function initTasks(){
-  ghFetchState().then(function(){
-    document.querySelectorAll('[data-task]').forEach(function(el){
-      var id=el.dataset.task;
-      var isDone = (ghState && Object.prototype.hasOwnProperty.call(ghState,id)) ? ghState[id] : (localStorage.getItem('task_'+id)==='done');
-      if(isDone) el.classList.add('done'); else el.classList.remove('done');
-      el.addEventListener('click',function(){
-        el.classList.toggle('done');
-        var done=el.classList.contains('done');
-        localStorage.setItem('task_'+id, done?'done':'');
-        if(ghState){ ghState[id]=done; ghWriteState(); }
-        updateDmProgress();
-        updatePmrProgress();
-      });
+  document.querySelectorAll('[data-task]').forEach(function(el){
+    var id=el.dataset.task;
+    if(localStorage.getItem('task_'+id)==='done') el.classList.add('done');
+    el.addEventListener('click',function(){
+      el.classList.toggle('done');
+      localStorage.setItem('task_'+id, el.classList.contains('done')?'done':'');
+      updateDmProgress();
+      updatePmrProgress();
     });
-    updateDmProgress();
-    updatePmrProgress();
   });
+  updateDmProgress();
+  updatePmrProgress();
 }
 
 updateCountdown();
